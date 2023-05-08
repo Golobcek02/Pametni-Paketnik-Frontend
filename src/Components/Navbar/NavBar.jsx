@@ -44,6 +44,9 @@ function Navbar() {
                     <li>
                         <Link to="/login">Login</Link>
                     </li>
+                    <li>
+                        <Link to="/addbox">Add new box</Link>
+                    </li>
                 </ul>
             </nav>
     );
