@@ -20,6 +20,12 @@ function UserBoxes() {
         }).catch(error => console.error(error));
     }
 
+    function removeOwner(id) {
+        axios.put(`http://localhost:5551/clearBox/${id}`).then(res => {
+            console.log(res)
+        }).catch(error => console.error(error));
+    }
+
     return (
         <>
             {
@@ -30,6 +36,7 @@ function UserBoxes() {
                                 Box ID: {box.BoxId}
                             </p>
                             <button onClick={() => deleteBox(box.BoxId)}>Delete</button>
+                            <button onClick={() => removeOwner(box.BoxId)}>Remove Owner</button>
                             <hr/>
                         </>
                     )) :
