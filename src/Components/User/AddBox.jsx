@@ -8,8 +8,8 @@ function AddBox() {
 
     function submitAddBox() {
         axios.post("http://localhost:5551/addUserBox", {
-            user_id: Cookies.get("id"),
-            smartbox_id: smartBoxID
+            UserID: Cookies.get("id"),
+            SmartBoxID: smartBoxID
         }).then(res => {
             if (res.status === 200) {
                 console.log(res);
