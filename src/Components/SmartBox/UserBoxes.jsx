@@ -5,24 +5,27 @@ import Cookies from "js-cookie";
 function UserBoxes() {
 
     const [userBoxes, setUserBoxes] = useState([])
+    const [deletedOrRemoved, setDeletedOrRemoved] = useState(false)
 
     useEffect(() => {
         axios.get(`http://localhost:5551/getUserBoxes/${Cookies.get('id')}`).then(res => {
             console.log(res)
             setUserBoxes(res.data)
         }).catch(error => console.error(error));
-    }, [])
+    }, [deletedOrRemoved])
 
 
     function deleteBox(id) {
         axios.delete(`http://localhost:5551/removeBox/${id}`).then(res => {
             console.log(res)
+            setDeletedOrRemoved(!deletedOrRemoved)
         }).catch(error => console.error(error));
     }
 
     function removeOwner(id) {
         axios.put(`http://localhost:5551/clearBox/${id}`).then(res => {
             console.log(res)
+            setDeletedOrRemoved(!deletedOrRemoved)
         }).catch(error => console.error(error));
     }
 
