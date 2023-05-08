@@ -30,8 +30,17 @@ function Navbar() {
                     <li>
                         <Link to="/entries">Entries</Link>
                     </li>
+                    <li>
+                        <Link to="/userBoxes">User Boxes</Link>
+                    </li>
+                    <li>
+                        <Link to="/addbox">Add new box</Link>
+                    </li>
+                    <li>
+                        <a href="/" onClick={() => logOut()}>Log Out</a>
+                    </li>
                 </ul>
-                <button onClick={() => logOut()}>Purge</button>
+                {/*<button onClick={() => logOut()}>Purge</button>*/}
             </nav> :
             <nav>
                 <ul>
@@ -43,9 +52,6 @@ function Navbar() {
                     </li>
                     <li>
                         <Link to="/login">Login</Link>
-                    </li>
-                    <li>
-                        <Link to="/addbox">Add new box</Link>
                     </li>
                 </ul>
             </nav>

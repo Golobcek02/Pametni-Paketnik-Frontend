@@ -2,6 +2,7 @@ import axios from 'axios';
 import {useState, useEffect} from "react"
 import Cookies from 'js-cookie';
 
+
 const data = require('../../SmartBoxRequest.json');
 
 
@@ -14,6 +15,7 @@ function Entries() {
 
     useEffect(() => {
         axios.get(`http://localhost:5551/getEntries/${Cookies.get('id')}`).then(res => {
+            console.log(res.data)
             setEntries(res.data);
             setNewEntry(false)
         });
@@ -28,7 +30,7 @@ function Entries() {
                 'Authorization': `Bearer 9ea96945-3a37-4638-a5d4-22e89fbc998f`,
             },
         }).then(response => {
-            // console.log(response.data);
+            console.log(response.data);
             const base64string = response.data.data;
             const audio = new Audio("data:audio/mp3;base64," + base64string);
             // audio.play();
@@ -54,6 +56,13 @@ function Entries() {
         setCustomId(538)
     }
 
+    function deleteEntry(id) {
+        // console.log(id)
+        axios.delete(`http://localhost:5551/removeEntry/${id}`).then(res => {
+            console.log(res)
+        }).catch(error => console.error(error));
+    }
+
     return (
         <>
             <input
@@ -74,16 +83,19 @@ function Entries() {
             </button>
             {
                 entries != null ?
-                    entries.map(entry => (
-                        <p key={entry.Latitude}>
-                            DeliveryId: {entry.DeliveryId}<br/>
-                            BoxId: {entry.BoxId}<br/>
-                            Lat: {entry.Latitude}<br/>
-                            Lon: {entry.Longitude}<br/>
-                            Owner: {entry.OpenerId}<br/>
-                            time: {entry.TimeAccessed}
-                            {/*<hr/>*/}
-                        </p>
+                    entries.map((entry, i) => (
+                        <>
+                            <p key={i}>
+                                DeliveryId: {entry.DeliveryId}<br/>
+                                BoxId: {entry.BoxId}<br/>
+                                Lat: {entry.Latitude}<br/>
+                                Lon: {entry.Longitude}<br/>
+                                Owner: {entry.OpenerId}<br/>
+                                time: {entry.TimeAccessed}
+                            </p>
+                            <button onClick={() => deleteEntry(entry.ID)}>Delete</button>
+                            <hr/>
+                        </>
                     )) :
                     <p>Nothing to see yet!</p>
             }
