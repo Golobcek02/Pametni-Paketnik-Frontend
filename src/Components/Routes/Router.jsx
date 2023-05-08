@@ -4,7 +4,7 @@ import Login from "../User/Login";
 import Register from "../User/Register";
 import {Home} from "../Home";
 import Entries from "../SmartBox/Entries";
-import AddBox from "../User/AddBox";
+import AddBox from "../SmartBox/AddBox";
 import UserBoxes from "../SmartBox/UserBoxes";
 
 function AppRouter() {
