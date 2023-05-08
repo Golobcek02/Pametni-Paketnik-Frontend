@@ -28,10 +28,7 @@ function Navbar() {
                         <Link to="/">Home</Link>
                     </li>
                     <li>
-                        <Link to="/register">Register</Link>
-                    </li>
-                    <li>
-                        <Link to="/login">Login</Link>
+                        <Link to="/entries">Entries</Link>
                     </li>
                 </ul>
                 <button onClick={() => logOut()}>Purge</button>
