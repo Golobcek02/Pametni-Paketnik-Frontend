@@ -11,6 +11,7 @@ function Entries() {
     const [entries, setEntries] = useState([]);
     const [newEntry, setNewEntry] = useState(false)
     const [customId, setCustomId] = useState(538)
+    const [shouldRerender, setShouldRerender] = useState(false);
     // const ourBoxId= 538
 
     useEffect(() => {
@@ -19,7 +20,7 @@ function Entries() {
             setEntries(res.data);
             setNewEntry(false)
         });
-    }, [newEntry])
+    }, [newEntry, shouldRerender])
 
     function tryApi() {
         console.log("try api", customId)
@@ -60,6 +61,7 @@ function Entries() {
         // console.log(id)
         axios.delete(`http://localhost:5551/removeEntry/${id}`).then(res => {
             console.log(res)
+            setShouldRerender(!shouldRerender);
         }).catch(error => console.error(error));
     }
 
