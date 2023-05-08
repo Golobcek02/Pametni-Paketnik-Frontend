@@ -5,6 +5,7 @@ import {useNavigate} from 'react-router-dom';
 
 function AddBox() {
     const [smartBoxID, setSmartBoxID] = useState('');
+    const navigate = useNavigate();
 
     function submitAddBox() {
         axios.post("http://localhost:5551/addUserBox", {
@@ -13,7 +14,7 @@ function AddBox() {
         }).then(res => {
             if (res.status === 200) {
                 console.log(res);
-                alert('Smartbox ID successfully appended to userboxes');
+                navigate("/userBoxes")
             }
         }).catch(error => {
             console.error(error);
@@ -31,4 +32,4 @@ function AddBox() {
     );
 }
 
-export default AddBox;
+export default AddBox
