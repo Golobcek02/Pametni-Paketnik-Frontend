@@ -34,7 +34,7 @@ function Entries() {
             console.log(response.data);
             const base64string = response.data.data;
             const audio = new Audio("data:audio/mp3;base64," + base64string);
-            // audio.play();
+            audio.play();
 
             axios.post(`http://localhost:5551/newEntry`, {
                 DeliveryId: data.deliveryId + 6,
