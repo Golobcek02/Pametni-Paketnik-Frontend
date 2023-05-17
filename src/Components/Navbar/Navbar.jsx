@@ -37,6 +37,9 @@ function Navbar() {
                         <Link to="/addbox">Add new box</Link>
                     </li>
                     <li>
+                        <Link to="/accessList">Access List</Link>
+                    </li>
+                    <li>
                         <a href="/" onClick={() => logOut()}>Log Out</a>
                     </li>
                 </ul>
