@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
 
-function AddAccess() {
+function AddAccess(props) {
     const [userToGrant, setUserToGrant] = useState('');
     const [boxId, setBoxId] = useState('');
     const [availableBoxes, setAvailableBoxes] = useState([]);
@@ -15,19 +15,7 @@ function AddAccess() {
             BoxId: parseInt(boxId)
         }).then((res) => {
                 console.log(res)
-            }
-        ).catch((err) => {
-            console.log("No user with that Username")
-        })
-    }
-
-    function revokeUserAccess() {
-        axios.post("http://localhost:5551/revokeAccessToUser", {
-            UserID: Cookies.get('id'),
-            AccessId: userToGrant,
-            BoxId: parseInt(boxId)
-        }).then((res) => {
-                console.log(res)
+                props.onAccessChange();
             }
         ).catch((err) => {
             console.log("No user with that Username")
@@ -37,7 +25,7 @@ function AddAccess() {
     useEffect(() => {
         axios.get(`http://localhost:5551/getUserBoxes/${Cookies.get('id')}`).then((res) => {
             console.log(res)
-            setAvailableBoxes(res.data)
+            setAvailableBoxes(res.data.allBoxes)
         }).catch(err => {
             console.log(err)
         })
@@ -57,7 +45,6 @@ function AddAccess() {
                 ))}
             </select>
             <button type='submit' onClick={() => addUserToAccessList()}>Add Access</button>
-            <button type='submit' onClick={() => revokeUserAccess()}>Revoke access to b</button>
         </div>
     )
 }
