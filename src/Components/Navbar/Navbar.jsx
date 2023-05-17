@@ -40,6 +40,9 @@ function Navbar() {
                         <Link to="/accessList">Access List</Link>
                     </li>
                     <li>
+                        <Link to="/map">Map</Link>
+                    </li>
+                    <li>
                         <a href="/" onClick={() => logOut()}>Log Out</a>
                     </li>
                 </ul>
