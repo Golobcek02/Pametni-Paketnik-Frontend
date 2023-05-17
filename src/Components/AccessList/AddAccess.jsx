@@ -21,6 +21,19 @@ function AddAccess() {
         })
     }
 
+    function revokeUserAccess() {
+        axios.post("http://localhost:5551/revokeUserAccess", {
+            UserID: Cookies.get('id'),
+            AccessId: "b",
+            BoxId: parseInt(boxId)
+        }).then((res) => {
+                console.log(res)
+            }
+        ).catch((err) => {
+            console.log("No user with that Username")
+        })
+    }
+
     useEffect(() => {
         axios.get(`http://localhost:5551/getUserBoxes/${Cookies.get('id')}`).then((res) => {
             console.log(res)
@@ -44,6 +57,7 @@ function AddAccess() {
                 ))}
             </select>
             <button type='submit' onClick={() => addUserToAccessList()}>Add Access</button>
+            <button type='submit' onClick={() => revokeUserAccess()}>Revoke access to b</button>
         </div>
     )
 }
