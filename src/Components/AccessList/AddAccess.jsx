@@ -22,9 +22,9 @@ function AddAccess() {
     }
 
     function revokeUserAccess() {
-        axios.post("http://localhost:5551/revokeUserAccess", {
+        axios.post("http://localhost:5551/revokeAccessToUser", {
             UserID: Cookies.get('id'),
-            AccessId: "b",
+            AccessId: userToGrant,
             BoxId: parseInt(boxId)
         }).then((res) => {
                 console.log(res)
