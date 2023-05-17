@@ -1,6 +1,7 @@
 import React, {useMemo, useState} from 'react';
 import {MapContainer, TileLayer} from "react-leaflet";
 import 'leaflet/dist/leaflet.css';
+import {AddBoxToMap} from "./AddBoxToMap";
 
 export function Map() {
     const [map, setMap] = useState(null);
@@ -22,6 +23,7 @@ export function Map() {
 
     return (
         <div style={{height: "calc(100vh - 160px)", width: "100%"}}>
+            <AddBoxToMap/>
             {displayMap}
         </div>
     );
