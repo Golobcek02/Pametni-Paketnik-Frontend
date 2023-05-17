@@ -2,6 +2,7 @@ import React, {useMemo, useState} from 'react';
 import {MapContainer, TileLayer} from "react-leaflet";
 import 'leaflet/dist/leaflet.css';
 import {AddBoxToMap} from "./AddBoxToMap";
+import {BoxLocation} from "./BoxLocation";
 
 export function Map() {
     const [map, setMap] = useState(null);
@@ -18,6 +19,7 @@ export function Map() {
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
+            <BoxLocation/>
         </MapContainer>
     ), []);
 
