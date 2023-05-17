@@ -42,7 +42,8 @@ function Entries() {
                 Latitude: 64,
                 Longitude: 16,
                 TimeAccessed: Date.now(),
-                OpenerId: Cookies.get('id').toString()
+                OpenerId: Cookies.get('id').toString(),
+                EntryType: "boxOpening"
             }).then(res => {
                 setNewEntry(true)
             })
