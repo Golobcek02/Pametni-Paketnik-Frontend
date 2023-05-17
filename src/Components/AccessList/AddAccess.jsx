@@ -7,19 +7,23 @@ function AddAccess(props) {
     const [boxId, setBoxId] = useState('');
     const [availableBoxes, setAvailableBoxes] = useState([]);
 
-
     function addUserToAccessList() {
         axios.post("http://localhost:5551/addAccessToUser", {
             UserID: Cookies.get('id'),
             AccessId: userToGrant,
             BoxId: parseInt(boxId)
         }).then((res) => {
-                console.log(res)
-                props.onAccessChange();
-            }
-        ).catch((err) => {
+            console.log(res)
+            props.onAccessChange();
+            clearFields();
+        }).catch((err) => {
             console.log("No user with that Username")
         })
+    }
+
+    function clearFields() {
+        setUserToGrant('');
+        setBoxId('');
     }
 
     useEffect(() => {
@@ -35,10 +39,10 @@ function AddAccess(props) {
         <div>
             <input type='text' id="username" onChange={(e) => {
                 setUserToGrant(e.target.value)
-            }} placeholder="Enter User To Grant"></input>
+            }} value={userToGrant} placeholder="Enter User To Grant"></input>
             <select id="box" onChange={(e) => {
                 setBoxId(e.target.value)
-            }}>
+            }} value={boxId}>
                 <option value="">Select Box</option>
                 {availableBoxes.map(option => (
                     <option key={option.ID} value={option.BoxId}>{option.BoxId}</option>
