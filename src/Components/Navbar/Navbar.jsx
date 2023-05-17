@@ -34,9 +34,6 @@ function Navbar() {
                         <Link to="/userBoxes">User Boxes</Link>
                     </li>
                     <li>
-                        <Link to="/addbox">Add new box</Link>
-                    </li>
-                    <li>
                         <Link to="/accessList">Access List</Link>
                     </li>
                     <li>
