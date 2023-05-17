@@ -5,6 +5,7 @@ import Cookies from "js-cookie";
 export function AccessList() {
     const [userToGrant, setUserToGrant] = useState('');
     const [boxId, setBoxId] = useState('');
+    const [availableBoxes, setAvailableBoxes] = useState([]);
 
 
     function addUserToAccessList() {
@@ -21,7 +22,12 @@ export function AccessList() {
     }
 
     useEffect(() => {
-        // axios.post("http://localhost:5551", {})
+        axios.get(`http://localhost:5551/getUserBoxes/${Cookies.get('id')}`).then((res) => {
+            console.log(res)
+            setAvailableBoxes(res.data)
+        }).catch(err => {
+            console.log(err)
+        })
     }, [])
 
     return (
@@ -29,9 +35,14 @@ export function AccessList() {
             <input type='text' id="username" onChange={(e) => {
                 setUserToGrant(e.target.value)
             }} placeholder="Enter User To Grant"></input>
-            <input type='text' id="password" onChange={(e) => {
+            <select id="box" onChange={(e) => {
                 setBoxId(e.target.value)
-            }} placeholder="Enter Box Id"></input>
+            }}>
+                <option value="">Select Box</option>
+                {availableBoxes.map(option => (
+                    <option key={option.ID} value={option.BoxId}>{option.BoxId}</option>
+                ))}
+            </select>
             <button type='submit' onClick={() => addUserToAccessList()}>Post</button>
         </div>
     )
