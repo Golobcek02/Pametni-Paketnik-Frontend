@@ -42,7 +42,8 @@ function Entries() {
                 Latitude: 64,
                 Longitude: 16,
                 TimeAccessed: Date.now(),
-                OpenerId: Cookies.get('id').toString()
+                OpenerId: Cookies.get('id').toString(),
+                EntryType: "boxOpening"
             }).then(res => {
                 setNewEntry(true)
             })
@@ -51,14 +52,23 @@ function Entries() {
             .catch(error => console.error(error));
     }
 
-    function postCustomId() {
-        console.log(customId)
-        tryApi()
-        setCustomId(538)
+    function postCustomEntry() {
+        axios.post(`http://localhost:5551/newEntry`, {
+            DeliveryId: data.deliveryId + 6,
+            BoxId: 888,
+            Latitude: 64,
+            Longitude: 16,
+            TimeAccessed: Date.now(),
+            LoggerId: Cookies.get('id').toString(),
+            EntryType: "boxOpening"
+        }).then(res => {
+            setNewEntry(true)
+        }).catch(err => {
+
+        })
     }
 
     function deleteEntry(id) {
-        // console.log(id)
         axios.delete(`http://localhost:5551/removeEntry/${id}`).then(res => {
             console.log(res)
             setShouldRerender(!shouldRerender);
@@ -76,8 +86,8 @@ function Entries() {
                     e.target.value = ""
                 }}
             />
-            <button onClick={() => postCustomId()}>
-                Custom id
+            <button onClick={() => postCustomEntry()}>
+                Try entry
             </button>
             <button onClick={() => {
                 tryApi();

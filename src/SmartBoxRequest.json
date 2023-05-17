@@ -1,12 +1,12 @@
 {
-    "deliveryId": 0,
-    "boxId": 1,
-    "tokenFormat": 5,
-    "latitude": 0,
-    "longitude": 0,
-    "qrCodeInfo": "string",
-    "terminalSeed": 0,
-    "isMultibox": false,
-    "doorIndex": 0,
-    "addAccessLog": false
-  }
+  "deliveryId": 0,
+  "boxId": 538,
+  "tokenFormat": 5,
+  "latitude": 0,
+  "longitude": 0,
+  "qrCodeInfo": "string",
+  "terminalSeed": 0,
+  "isMultibox": false,
+  "doorIndex": 0,
+  "addAccessLog": false
+}
