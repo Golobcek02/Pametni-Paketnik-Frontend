@@ -7,6 +7,7 @@ import Entries from "../SmartBox/Entries";
 import UserBoxes from "../SmartBox/UserBoxes";
 import {AccessList} from "../AccessList/AccessList";
 import {Map} from "../Map/Map";
+import {PackageRoutes} from "../PackageRoutes/PackageRoutes";
 
 function AppRouter() {
     return (
@@ -18,6 +19,7 @@ function AppRouter() {
             <Route path="/userBoxes" element={<UserBoxes/>}/>
             <Route path="/accessList" element={<AccessList/>}/>
             <Route path="/map" element={<Map/>}/>
+            <Route path="/packageRoutes" element={<PackageRoutes/>}/>
         </Routes>
     );
 }
