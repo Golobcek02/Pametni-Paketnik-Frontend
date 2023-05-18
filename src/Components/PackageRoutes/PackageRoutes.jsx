@@ -5,6 +5,7 @@ import Cookies from "js-cookie";
 export function PackageRoutes() {
     const [nonParsedRoutes, setNonParsedRoutes] = useState("");
     const [boxId, setBoxId] = useState(0);
+    const [boxIdInput, setBoxIdInput] = useState(0);
 
     function addRoutes() {
         const parsedRoutes = nonParsedRoutes.split(",").map(route => route.trim());
@@ -31,6 +32,14 @@ export function PackageRoutes() {
             console.log(err)
         })
 
+    }
+
+    function popFirstStop() {
+        axios.post(`http://localhost:5551/popFirstStop/${boxIdInput}`).then((res) => {
+            console.log(res);
+        }).catch((err) => {
+            console.log(err);
+        });
     }
 
     useEffect(() => {
@@ -91,6 +100,19 @@ export function PackageRoutes() {
                 />
                 <button type="submit" onClick={() => updateOrder()}>
                     Post
+                </button>
+            </div>
+            <div>
+                <input
+                    type="text"
+                    id="username"
+                    onChange={(e) => {
+                        setBoxIdInput(parseInt(e.target.value));
+                    }}
+                    placeholder="Enter Box ID"
+                />
+                <button type="submit" onClick={() => popFirstStop()}>
+                    Pop First Stop
                 </button>
             </div>
         </>
