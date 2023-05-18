@@ -36,31 +36,41 @@ export function OrderRoutes(props) {
         return `rgb(${r},${g},${b})`;
     }
 
+    const firstStopIcon = L.icon({
+        iconUrl: 'truck.svg',
+        iconSize: [32, 32],
+    });
+    const intermediateStopIcon = L.icon({
+        iconUrl: "truck.svg",
+        iconSize: [24, 24],
+    });
+    const finalStopIcon = L.icon({
+        iconUrl: "truck.svg",
+        iconSize: [28, 28],
+    });
+
     useEffect(() => {
-        // if (stops.length > 0) {
-        //     let neke = stops[0]
-        //
-        //     const stopString = neke.join('|');
-        //     axios.get(`https://api.geoapify.com/v1/routing?waypoints=${stopString}&mode=light_truck&format=json&apiKey=635b84cbf55241c6b792a66cd02745a9`)
-        //         .then((res) => {
-        //             console.log(res.data.results[0])
-        //             const routeCoordinates = res.data.results[0].geometry[0];
-        //             const polyline = L.polyline(routeCoordinates).addTo(props.map);
-        //             props.map.fitBounds(polyline.getBounds());
-        //         })
-        // }
-        stops.forEach((stop) => {
-            const stopString = stop.join('|');
-            console.log(stopString);
-            // Perform other operations with the stop string
-            axios.get(`https://api.geoapify.com/v1/routing?waypoints=${stopString}&mode=light_truck&format=json&apiKey=635b84cbf55241c6b792a66cd02745a9`)
-                .then((res) => {
-                    console.log(res)
-                    const routeCoordinates = res.data.results[0].geometry;
-                    const polyline = L.polyline(routeCoordinates, {'color': getRandomColor()}).addTo(props.map);
-                    props.map.fitBounds(polyline.getBounds());
-                })
-        });
+        if (stops.length > 0) {
+            stops.forEach((stop) => {
+                const stopString = stop.join('|');
+                console.log(stopString);
+                // Perform other operations with the stop string
+                axios.get(`https://api.geoapify.com/v1/routing?waypoints=${stopString}&mode=light_truck&format=json&apiKey=635b84cbf55241c6b792a66cd02745a9`)
+                    .then((res) => {
+                        console.log(res)
+                        const routeCoordinates = res.data.results[0].geometry;
+                        routeCoordinates.forEach((coords, index) => {
+                            //     const markerOptions = {
+                            //         icon: index === 0 ? firstStopIcon : index === routeCoordinates.length - 1 ? finalStopIcon : intermediateStopIcon,
+                            //     };
+                            //     console.log(coords)
+                            const marker = L.marker(coords[index], {icon: finalStopIcon}).addTo(props.map);
+                        });
+                        const polyline = L.polyline(routeCoordinates, {'color': getRandomColor()}).addTo(props.map);
+                        props.map.fitBounds(polyline.getBounds());
+                    })
+            });
+        }
     }, [stops]);
 
 
