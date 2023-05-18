@@ -8,11 +8,11 @@ export function DisplayOrders() {
 
         const userId = Cookies.get("id");
         axios.get(`http://localhost:5551/getUserOrders/${userId}`)
-            .then((response) => {
-                setOrders(response.data.orders);
+            .then((res) => {
+                setOrders(res.data.orders);
             })
-            .catch((error) => {
-                console.error(error);
+            .catch((err) => {
+                console.error(err);
             });
     }, []);
 
