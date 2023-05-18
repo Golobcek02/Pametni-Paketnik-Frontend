@@ -2,6 +2,7 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
 import {useMap} from "react-leaflet";
+import L from "leaflet"
 
 export function OrderRoutes(props) {
 
@@ -29,6 +30,18 @@ export function OrderRoutes(props) {
     }, []);
 
     useEffect(() => {
+        // if (stops.length > 0) {
+        //     let neke = stops[0]
+        //
+        //     const stopString = neke.join('|');
+        //     axios.get(`https://api.geoapify.com/v1/routing?waypoints=${stopString}&mode=light_truck&format=json&apiKey=635b84cbf55241c6b792a66cd02745a9`)
+        //         .then((res) => {
+        //             console.log(res.data.results[0])
+        //             const routeCoordinates = res.data.results[0].geometry[0];
+        //             const polyline = L.polyline(routeCoordinates).addTo(props.map);
+        //             props.map.fitBounds(polyline.getBounds());
+        //         })
+        // }
         stops.forEach((stop) => {
             const stopString = stop.join('|');
             console.log(stopString);
@@ -36,7 +49,9 @@ export function OrderRoutes(props) {
             axios.get(`https://api.geoapify.com/v1/routing?waypoints=${stopString}&mode=light_truck&format=json&apiKey=635b84cbf55241c6b792a66cd02745a9`)
                 .then((res) => {
                     console.log(res)
-                    props.map.geoJSON.bind(res.data)
+                    const routeCoordinates = res.data.results[0].geometry[0];
+                    const polyline = L.polyline(routeCoordinates).addTo(props.map);
+                    props.map.fitBounds(polyline.getBounds());
                 })
         });
     }, [stops]);

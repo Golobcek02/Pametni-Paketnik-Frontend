@@ -43,7 +43,8 @@ export function PackageRoutes() {
                         `https://api.geoapify.com/v1/geocode/search?text=${location}&format=json&apiKey=635b84cbf55241c6b792a66cd02745a9`
                     )
                     .then((res) => {
-                        coordinates[i] = `${res.data.results[0].lat},${res.data.results[0].lat}`;
+                        console.log(res)
+                        coordinates[i] = `${res.data.results[0].lat},${res.data.results[0].lon}`;
                     })
             )
         )

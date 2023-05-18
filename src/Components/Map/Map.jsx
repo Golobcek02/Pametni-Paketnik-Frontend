@@ -21,12 +21,12 @@ export function Map() {
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
             <BoxLocation/>
-            <OrderRoutes map={map}/>
         </MapContainer>
     ), []);
 
     return (
         <div style={{height: "calc(100vh - 160px)", width: "100%"}}>
+            <OrderRoutes map={map}/>
             <AddBoxToMap/>
             {displayMap}
         </div>
