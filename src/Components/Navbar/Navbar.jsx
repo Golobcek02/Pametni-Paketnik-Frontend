@@ -40,6 +40,9 @@ function Navbar() {
                         <Link to="/packageRoutes">Package Routes</Link>
                     </li>
                     <li>
+                        <Link to="/userOrders">Orders</Link>
+                    </li>
+                    <li>
                         <Link to="/map">Map</Link>
                     </li>
                     <li>
