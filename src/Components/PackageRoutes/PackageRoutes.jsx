@@ -1,5 +1,6 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 export function PackageRoutes() {
     const [nonParsedRoutes, setNonParsedRoutes] = useState("");
@@ -21,6 +22,27 @@ export function PackageRoutes() {
             console.log(err)
         })
     }
+
+    function updateOrder() {
+        const parsedRoutes = nonParsedRoutes.split(",").map(route => route.trim());
+        axios.post(`http://localhost:5551/updateOrderRoute/${boxId}`, parsedRoutes).then((res) => {
+            console.log(res)
+        }).catch((err) => {
+            console.log(err)
+        })
+
+    }
+
+    useEffect(() => {
+        axios.get(`http://localhost:5551/getUserOrders/${Cookies.get('id')}`, {
+            BoxId: parseInt(boxId),
+            Status: "Pending"
+        }).then((res) => {
+            console.log(res)
+        }).catch((err) => {
+            console.log(err)
+        })
+    }, [])
 
     return (
         <>
@@ -47,6 +69,27 @@ export function PackageRoutes() {
                     placeholder="Enter Package ID"
                 />
                 <button type="submit" onClick={() => addOrder()}>
+                    Post
+                </button>
+            </div>
+            <div>
+                <input
+                    type="text"
+                    id="username"
+                    onChange={(e) => {
+                        setBoxId(parseInt(e.target.value));
+                    }}
+                    placeholder="Enter Box ID"
+                />
+                <input
+                    type="text"
+                    id="username"
+                    onChange={(e) => {
+                        setNonParsedRoutes(e.target.value);
+                    }}
+                    placeholder="Route"
+                />
+                <button type="submit" onClick={() => updateOrder()}>
                     Post
                 </button>
             </div>
