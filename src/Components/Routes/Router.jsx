@@ -7,6 +7,7 @@ import Entries from "../SmartBox/Entries";
 import UserBoxes from "../SmartBox/UserBoxes";
 import {AccessList} from "../AccessList/AccessList";
 import {Map} from "../Map/Map";
+import {DisplayOrders} from "../UserOrders/DisplayOrders"
 
 function AppRouter() {
     return (
@@ -17,6 +18,7 @@ function AppRouter() {
             <Route path="/entries" element={<Entries/>}/>
             <Route path="/userBoxes" element={<UserBoxes/>}/>
             <Route path="/accessList" element={<AccessList/>}/>
+            <Route path="/displayOrders" element={<DisplayOrders/>}/>
             <Route path="/map" element={<Map/>}/>
         </Routes>
     );

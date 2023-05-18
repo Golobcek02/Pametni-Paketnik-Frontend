@@ -37,6 +37,9 @@ function Navbar() {
                         <Link to="/accessList">Access List</Link>
                     </li>
                     <li>
+                        <Link to="/displayOrders">Display orders</Link>
+                    </li>
+                    <li>
                         <Link to="/map">Map</Link>
                     </li>
                     <li>
