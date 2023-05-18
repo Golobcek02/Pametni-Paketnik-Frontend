@@ -8,7 +8,15 @@ export function PackageRoutes() {
 
     function addRoutes() {
         const parsedRoutes = nonParsedRoutes.split(",").map(route => route.trim());
-        axios.post("http://localhost:5551/addPackageRoute", {Stops: parsedRoutes}).then((res) => {
+        let coordinates = []
+        parsedRoutes.map((location, i) => {
+            axios.post(`https://api.geoapify.com/v1/geocode/search?text=${location}&format=json&apiKey=635b84cbf55241c6b792a66cd02745a9`).then((res) => {
+                console.log(res)
+                coordinates[i] = `${res.data.results[0].lat}|${res.data.results[0].lat}`
+            })
+        })
+        console.log("coordinates", coordinates)
+        axios.post("http://localhost:5551/addPackageRoute", {Stops: coordinates}).then((res) => {
             console.log(res)
         }).catch((err) => {
             console.log(err)
@@ -24,12 +32,31 @@ export function PackageRoutes() {
     }
 
     function updateOrder() {
-        const parsedRoutes = nonParsedRoutes.split(",").map(route => route.trim());
-        axios.post(`http://localhost:5551/updateOrderRoute/${boxId}`, parsedRoutes).then((res) => {
-            console.log(res)
-        }).catch((err) => {
-            console.log(err)
-        })
+        const parsedRoutes = nonParsedRoutes.split(",").map((route) => route.trim());
+        const coordinates = Array(parsedRoutes.length);
+
+        Promise.all(
+            parsedRoutes.map((location, i) =>
+                axios
+                    .get(
+                        `https://api.geoapify.com/v1/geocode/search?text=${location}&format=json&apiKey=635b84cbf55241c6b792a66cd02745a9`
+                    )
+                    .then((res) => {
+                        coordinates[i] = `${res.data.results[0].lat},${res.data.results[0].lat}`;
+                    })
+            )
+        )
+            .then(() => {
+                console.log(coordinates);
+                axios.post(`http://localhost:5551/updateOrderRoute/${boxId}`, coordinates).then((res) => {
+                    console.log(res)
+                }).catch((err) => {
+                    console.log(err)
+                })
+            })
+            .catch((error) => {
+                console.log(error);
+            });
 
     }
 

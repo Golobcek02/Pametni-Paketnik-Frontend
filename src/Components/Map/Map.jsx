@@ -3,6 +3,7 @@ import {MapContainer, TileLayer} from "react-leaflet";
 import 'leaflet/dist/leaflet.css';
 import {AddBoxToMap} from "./AddBoxToMap";
 import {BoxLocation} from "./BoxLocation";
+import {OrderRoutes} from "./OrderRoutes";
 
 export function Map() {
     const [map, setMap] = useState(null);
@@ -20,6 +21,7 @@ export function Map() {
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
             <BoxLocation/>
+            <OrderRoutes map={map}/>
         </MapContainer>
     ), []);
 

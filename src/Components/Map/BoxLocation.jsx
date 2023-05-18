@@ -8,7 +8,7 @@ export function BoxLocation() {
 
     useEffect(() => {
         axios.get(`http://localhost:5551/getUserBoxes/${Cookies.get('id')}`).then(res => {
-            console.log(res);
+            // console.log(res);
             setUserBoxes(res.data.allBoxes);
         }).catch(error => console.error(error));
     }, [])
