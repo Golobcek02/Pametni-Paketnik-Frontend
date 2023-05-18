@@ -22,7 +22,7 @@ export function AddedAccessList(props) {
     }
 
     useEffect(() => {
-        axios.get(`http://localhost:5551/getUserBoxes/${Cookies.get('id')}`).then((res) => {
+        axios.get(`http://localhost:5551/getUserBoxesAndAccesses/${Cookies.get('id')}`).then((res) => {
             setUserBoxes(res.data.allBoxes)
             setUsernames(res.data.usernames)
             console.log(res.data.usernames[0])
