@@ -29,6 +29,13 @@ export function OrderRoutes(props) {
             });
     }, []);
 
+    function getRandomColor() {
+        const r = Math.floor(Math.random() * 256);
+        const g = Math.floor(Math.random() * 256);
+        const b = Math.floor(Math.random() * 256);
+        return `rgb(${r},${g},${b})`;
+    }
+
     useEffect(() => {
         // if (stops.length > 0) {
         //     let neke = stops[0]
@@ -49,8 +56,8 @@ export function OrderRoutes(props) {
             axios.get(`https://api.geoapify.com/v1/routing?waypoints=${stopString}&mode=light_truck&format=json&apiKey=635b84cbf55241c6b792a66cd02745a9`)
                 .then((res) => {
                     console.log(res)
-                    const routeCoordinates = res.data.results[0].geometry[0];
-                    const polyline = L.polyline(routeCoordinates).addTo(props.map);
+                    const routeCoordinates = res.data.results[0].geometry;
+                    const polyline = L.polyline(routeCoordinates, {'color': getRandomColor()}).addTo(props.map);
                     props.map.fitBounds(polyline.getBounds());
                 })
         });
