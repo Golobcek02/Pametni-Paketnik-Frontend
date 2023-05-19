@@ -43,6 +43,9 @@ function Navbar() {
                         <Link to="/userOrders">Orders</Link>
                     </li>
                     <li>
+                        <Link to="/addOrder">Add order</Link>
+                    </li>
+                    <li>
                         <Link to="/map">Map</Link>
                     </li>
                     <li>
