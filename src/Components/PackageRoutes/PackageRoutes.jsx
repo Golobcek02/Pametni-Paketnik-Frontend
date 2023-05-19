@@ -7,7 +7,11 @@ export function PackageRoutes() {
     const [boxId, setBoxId] = useState(0);
     const [boxIdInput, setBoxIdInput] = useState(0);
 
-    function addRoutes() {
+    /*function addRoutes() {
+        const [nonParsedRoutes, setNonParsedRoutes] = useState("");
+        const [boxId, setBoxId] = useState(0);
+        const [boxIdInput, setBoxIdInput] = useState(0);
+
         const parsedRoutes = nonParsedRoutes.split(",").map(route => route.trim());
         let coordinates = []
         parsedRoutes.map((location, i) => {
@@ -24,14 +28,29 @@ export function PackageRoutes() {
         })
     }
 
-    function addOrder() {
+    /*function addOrder() {
         axios.post("http://localhost:5551/addOrder", {BoxId: parseInt(boxId), Status: "Pending"}).then((res) => {
             console.log(res)
         }).catch((err) => {
             console.log(err)
         })
+    }*/
+    function addRoutes() {
+        const parsedRoutes = nonParsedRoutes.split(",").map(route => route.trim());
+        let coordinates = []
+        parsedRoutes.map((location, i) => {
+            axios.post(`https://api.geoapify.com/v1/geocode/search?text=${location}&format=json&apiKey=635b84cbf55241c6b792a66cd02745a9`).then((res) => {
+                console.log(res)
+                coordinates[i] = `${res.data.results[0].lat}|${res.data.results[0].lat}`
+            })
+        })
+        console.log("coordinates", coordinates)
+        axios.post("http://localhost:5551/addPackageRoute", {Stops: coordinates}).then((res) => {
+            console.log(res)
+        }).catch((err) => {
+            console.log(err)
+        })
     }
-
     function updateOrder() {
         const parsedRoutes = nonParsedRoutes.split(",").map((route) => route.trim());
         const coordinates = Array(parsedRoutes.length);
@@ -96,6 +115,7 @@ export function PackageRoutes() {
                     Post
                 </button>
             </div>
+
             <div>
                 <input
                     type="text"
@@ -103,20 +123,7 @@ export function PackageRoutes() {
                     onChange={(e) => {
                         setBoxId(parseInt(e.target.value));
                     }}
-                    placeholder="Enter Package ID"
-                />
-                <button type="submit" onClick={() => addOrder()}>
-                    Post
-                </button>
-            </div>
-            <div>
-                <input
-                    type="text"
-                    id="username"
-                    onChange={(e) => {
-                        setBoxId(parseInt(e.target.value));
-                    }}
-                    placeholder="Enter Box ID"
+                    placeholder="Enter Box ID for Route"
                 />
                 <input
                     type="text"
