@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
 
@@ -45,7 +45,16 @@ export function PackageRoutes() {
             })
         })
         console.log("coordinates", coordinates)
-        axios.post("http://localhost:5551/addPackageRoute", {Stops: coordinates}).then((res) => {
+        axios.post("http://localhost:5551/addPackageRoute", { Stops: coordinates }).then((res) => {
+            axios.post(`http://localhost:5551/newEntry`, {
+                DeliveryId: data.deliveryId + 2,
+                BoxId: 000,
+                Latitude: 0,
+                Longitude: 0,
+                TimeAccessed: Date.now(),
+                OpenerId: Cookies.get('id').toString(),
+                EntryType: "packageRouteAdded"
+            }).then(res => { console.log(res); })
             console.log(res)
         }).catch((err) => {
             console.log(err)
@@ -70,6 +79,15 @@ export function PackageRoutes() {
             .then(() => {
                 console.log(coordinates);
                 axios.post(`http://localhost:5551/updateOrderRoute/${boxId}`, coordinates).then((res) => {
+                    axios.post(`http://localhost:5551/newEntry`, {
+                        DeliveryId: data.deliveryId + 2,
+                        BoxId: boxId,
+                        Latitude: 0,
+                        Longitude: 0,
+                        TimeAccessed: Date.now(),
+                        OpenerId: Cookies.get('id').toString(),
+                        EntryType: "orderRouteUpdated"
+                    }).then(res => { console.log(res); })
                     console.log(res)
                 }).catch((err) => {
                     console.log(err)

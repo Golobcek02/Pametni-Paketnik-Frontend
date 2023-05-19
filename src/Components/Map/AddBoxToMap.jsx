@@ -1,7 +1,7 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import {useState} from "react";
-import {useNavigate} from 'react-router-dom';
+import { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 
 export function AddBoxToMap() {
     const [smartBoxID, setSmartBoxID] = useState('');
@@ -19,6 +19,15 @@ export function AddBoxToMap() {
                     Lon: responce.data.results[0].lon
                 }).then(res => {
                     if (res.status === 200) {
+                        axios.post(`http://localhost:5551/newEntry`, {
+                            DeliveryId: data.deliveryId + 1,
+                            BoxId: smartBoxID,
+                            Latitude: responce.data.results[0].lat,
+                            Longitude: responce.data.results[0].lon,
+                            TimeAccessed: Date.now(),
+                            OpenerId: Cookies.get('id').toString(),
+                            EntryType: "boxAdded"
+                        }).then(res => { console.log(res); })
                         console.log(res);
                         navigate("/userBoxes")
                     }
