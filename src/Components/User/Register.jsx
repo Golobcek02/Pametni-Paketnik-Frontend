@@ -20,6 +20,15 @@ function Register() {
         }).then(res => {
             if (res.status == 200) {
                 console.log(res);
+                axios.post(`http://localhost:5551/newEntry`, {
+                    DeliveryId: data.deliveryId + 3,
+                    BoxId: 000,
+                    Latitude: 0,
+                    Longitude: 0,
+                    TimeAccessed: Date.now(),
+                    OpenerId: username,
+                    EntryType: "userCreated"
+                }).then(res => { console.log(res); })
                 navigate('/login');
             }
         })
