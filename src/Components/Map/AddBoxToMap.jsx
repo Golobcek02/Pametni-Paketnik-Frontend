@@ -30,7 +30,7 @@ export function AddBoxToMap() {
                         }).then(r => { console.log(r); })
 
                         console.log(res);
-                        navigate("/userBoxes")
+                        navigate("/map")
                     }
                 }).catch(error => {
                     console.error(error);

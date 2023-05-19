@@ -102,7 +102,7 @@ function Entries() {
                                 BoxId: {entry.BoxId}<br/>
                                 Lat: {entry.Latitude}<br/>
                                 Lon: {entry.Longitude}<br/>
-                                Owner: {entry.OpenerId}<br/>
+                                Owner: {entry.LoggerId}<br/>
                                 time: {entry.TimeAccessed}
                             </p>
                             <button onClick={() => deleteEntry(entry.ID)}>Delete</button>

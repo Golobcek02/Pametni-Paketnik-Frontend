@@ -42,23 +42,27 @@ export function PackageRoutes() {
             axios.post(`https://api.geoapify.com/v1/geocode/search?text=${location}&format=json&apiKey=635b84cbf55241c6b792a66cd02745a9`).then((res) => {
                 console.log(res)
                 coordinates[i] = `${res.data.results[0].lat}|${res.data.results[0].lat}`
+            }).catch(err=>{
+                alert('No such route could be established');
             })
         })
         console.log("coordinates", coordinates)
-        axios.post("http://localhost:5551/addPackageRoute", { Stops: coordinates }).then((res) => {
-            axios.post(`http://localhost:5551/newEntry`, {
-                DeliveryId:  2,
-                BoxId: 0,
-                Latitude: 0,
-                Longitude: 0,
-                TimeAccessed: Date.now(),
-                LoggerId: Cookies.get('id').toString(),
-                EntryType: "packageRouteAdded"
-            }).then(res => { console.log(res); })
-            console.log(res)
-        }).catch((err) => {
-            console.log(err)
-        })
+        if(coordinates.length>0){
+            axios.post("http://localhost:5551/addPackageRoute", { Stops: coordinates }).then((res) => {
+                axios.post(`http://localhost:5551/newEntry`, {
+                    DeliveryId:  2,
+                    BoxId: 0,
+                    Latitude: 0,
+                    Longitude: 0,
+                    TimeAccessed: Date.now(),
+                    LoggerId: Cookies.get('id').toString(),
+                    EntryType: "packageRouteAdded"
+                }).then(res => { console.log(res); })
+                console.log(res)
+            }).catch((err) => {
+                console.log(err)
+            })
+        }
     }
     function updateOrder() {
         const parsedRoutes = nonParsedRoutes.split(",").map((route) => route.trim());

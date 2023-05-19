@@ -22,6 +22,7 @@ export function OrderRoutes(props) {
                     }
                     return [];
                 });
+                console.log(stopsArray)
                 setStops(stopsArray);
             })
             .catch((err) => {

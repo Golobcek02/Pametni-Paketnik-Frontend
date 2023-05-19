@@ -25,12 +25,6 @@ export function DisplayOrders() {
                 <div key={order.ID}>
                     <p>Order ID: {order.ID}</p>
                     <p>Status: {order.Status}</p>
-                    {
-                        order.PackageRoute.Stops==null?
-                        <p>Order pending to be proccessed</p>:
-
-                    <p>Route: {order.PackageRoute.Stops.join(", ")}</p>
-                    }
                     {order.PageUrl && <p>Page URL: {order.PageUrl}</p>} {/* Conditional rendering for PageUrl */}
                     {order.DeliveryTime && <p>Delivery Time: {order.DeliveryTime}</p>} {/* Conditional rendering for DeliveryTime */}
                     {order.Items && (
