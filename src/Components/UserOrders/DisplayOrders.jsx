@@ -5,10 +5,12 @@ export function DisplayOrders() {
     const [orders, setOrders] = useState([]);
 
     useEffect(() => {
-
         const userId = Cookies.get("id");
-        axios.get(`http://localhost:5551/getUserOrders/${userId}`)
+        axios
+            .get(`http://localhost:5551/getUserOrders/${userId}`)
             .then((res) => {
+                const receivedOrders = res.data.orders;
+                console.log("Number of orders received:", receivedOrders.length);
                 setOrders(res.data.orders);
             })
             .catch((err) => {
@@ -24,6 +26,18 @@ export function DisplayOrders() {
                     <p>Order ID: {order.ID}</p>
                     <p>Status: {order.Status}</p>
                     <p>Route: {order.PackageRoute.Stops.join(", ")}</p>
+                    {order.PageUrl && <p>Page URL: {order.PageUrl}</p>} {/* Conditional rendering for PageUrl */}
+                    {order.DeliveryTime && <p>Delivery Time: {order.DeliveryTime}</p>} {/* Conditional rendering for DeliveryTime */}
+                    {order.Items && (
+                        <div>
+                            <p>Items:</p>
+                            <ul>
+                                {order.Items.map((item) => (
+                                    <li key={item}>{item}</li>
+                                ))}
+                            </ul>
+                        </div>
+                    )} {/* Conditional rendering and mapping for Items */}
                 </div>
             ))}
         </div>
