@@ -14,6 +14,15 @@ function AddAccess(props) {
             BoxId: parseInt(boxId)
         }).then((res) => {
             console.log(res)
+            axios.post(`http://localhost:5551/newEntry`, {
+                DeliveryId: 4,
+                BoxId: parseInt(boxId),
+                Latitude: 0,
+                Longitude: 0,
+                TimeAccessed: Date.now(),
+                LoggerId: Cookies.get('id').toString(),
+                EntryType: "accessAdded"
+            }).then(r => { console.log(r); })
             props.onAccessChange();
             clearFields();
         }).catch((err) => {

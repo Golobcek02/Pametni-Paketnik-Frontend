@@ -20,14 +20,15 @@ export function AddBoxToMap() {
                 }).then(res => {
                     if (res.status === 200) {
                         axios.post(`http://localhost:5551/newEntry`, {
-                            DeliveryId: data.deliveryId + 1,
-                            BoxId: smartBoxID,
+                            DeliveryId: 1,
+                            BoxId: parseInt(smartBoxID),
                             Latitude: responce.data.results[0].lat,
                             Longitude: responce.data.results[0].lon,
                             TimeAccessed: Date.now(),
-                            OpenerId: Cookies.get('id').toString(),
+                            LoggerId: Cookies.get('id').toString(),
                             EntryType: "boxAdded"
-                        }).then(res => { console.log(res); })
+                        }).then(r => { console.log(r); })
+
                         console.log(res);
                         navigate("/userBoxes")
                     }

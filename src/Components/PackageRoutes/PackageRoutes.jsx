@@ -47,12 +47,12 @@ export function PackageRoutes() {
         console.log("coordinates", coordinates)
         axios.post("http://localhost:5551/addPackageRoute", { Stops: coordinates }).then((res) => {
             axios.post(`http://localhost:5551/newEntry`, {
-                DeliveryId: data.deliveryId + 2,
-                BoxId: 000,
+                DeliveryId:  2,
+                BoxId: 0,
                 Latitude: 0,
                 Longitude: 0,
                 TimeAccessed: Date.now(),
-                OpenerId: Cookies.get('id').toString(),
+                LoggerId: Cookies.get('id').toString(),
                 EntryType: "packageRouteAdded"
             }).then(res => { console.log(res); })
             console.log(res)
@@ -80,12 +80,12 @@ export function PackageRoutes() {
                 console.log(coordinates);
                 axios.post(`http://localhost:5551/updateOrderRoute/${boxId}`, coordinates).then((res) => {
                     axios.post(`http://localhost:5551/newEntry`, {
-                        DeliveryId: data.deliveryId + 2,
+                        DeliveryId: 2,
                         BoxId: boxId,
                         Latitude: 0,
                         Longitude: 0,
                         TimeAccessed: Date.now(),
-                        OpenerId: Cookies.get('id').toString(),
+                        LoggerId: Cookies.get('id').toString(),
                         EntryType: "orderRouteUpdated"
                     }).then(res => { console.log(res); })
                     console.log(res)

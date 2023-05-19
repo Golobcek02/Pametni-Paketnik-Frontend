@@ -13,6 +13,15 @@ export function AddedAccessList(props) {
             AccessId: username,
             BoxId: parseInt(boxId)
         }).then((res) => {
+            axios.post(`http://localhost:5551/newEntry`, {
+                DeliveryId: 4,
+                BoxId: parseInt(boxId),
+                Latitude: 0,
+                Longitude: 0,
+                TimeAccessed: Date.now(),
+                LoggerId: Cookies.get('id').toString(),
+                EntryType: "accessRevoked"
+            }).then(r => { console.log(r); })
                 setChanged(!changed)
                 console.log(res)
             }

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 export function AddOrder() {
     const [boxId, setBoxId] = useState(0);
@@ -20,6 +21,15 @@ export function AddOrder() {
         axios
             .post("http://localhost:5551/addOrder", order)
             .then((res) => {
+                axios.post(`http://localhost:5551/newEntry`, {
+                    DeliveryId: 2,
+                    BoxId: parseInt(boxId),
+                    Latitude: 0,
+                    Longitude: 0,
+                    TimeAccessed: Date.now(),
+                    LoggerId: Cookies.get('id').toString(),
+                    EntryType: "orderAdded"
+                }).then(res => { console.log(res); })
                 console.log(res);
                 setBoxId(0);
                 setPageUrl("");

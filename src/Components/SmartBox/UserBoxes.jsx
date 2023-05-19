@@ -20,12 +20,12 @@ function UserBoxes() {
             console.log(res)
             setDeletedOrRemoved(!deletedOrRemoved)
             axios.post(`http://localhost:5551/newEntry`, {
-                DeliveryId: data.deliveryId + 2,
+                DeliveryId: 2,
                 BoxId: id,
                 Latitude: 0,
                 Longitude: 0,
                 TimeAccessed: Date.now(),
-                OpenerId: Cookies.get('id').toString(),
+                LoggerId: Cookies.get('id').toString(),
                 EntryType: "boxDeleted"
             }).then(res => { console.log(res); })
         }).catch(error => console.error(error));
@@ -36,12 +36,12 @@ function UserBoxes() {
             console.log(res)
             setDeletedOrRemoved(!deletedOrRemoved)
             axios.post(`http://localhost:5551/newEntry`, {
-                DeliveryId: data.deliveryId + 2,
+                DeliveryId: 2,
                 BoxId: id,
                 Latitude: 0,
                 Longitude: 0,
                 TimeAccessed: Date.now(),
-                OpenerId: Cookies.get('id').toString(),
+                LoggerId: Cookies.get('id').toString(),
                 EntryType: "boxRemovedFromOwner"
             }).then(res => { console.log(res); })
         }).catch(error => console.error(error));
