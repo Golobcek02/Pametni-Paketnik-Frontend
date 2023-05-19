@@ -26,7 +26,7 @@ export function Map() {
 
     return (
         <div style={{height: "calc(100vh - 160px)", width: "100%"}}>
-            <OrderRoutes map={map}/>
+            <OrderRoutes/>
             <AddBoxToMap/>
             {displayMap}
         </div>

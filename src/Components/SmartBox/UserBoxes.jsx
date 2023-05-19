@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
 
@@ -18,7 +18,6 @@ function UserBoxes() {
     function deleteBox(id) {
         axios.delete(`http://localhost:5551/removeBox/${id}`).then(res => {
             console.log(res)
-            setDeletedOrRemoved(!deletedOrRemoved)
             axios.post(`http://localhost:5551/newEntry`, {
                 DeliveryId: 2,
                 BoxId: id,
@@ -28,6 +27,7 @@ function UserBoxes() {
                 LoggerId: Cookies.get('id').toString(),
                 EntryType: "boxDeleted"
             }).then(res => { console.log(res); })
+            setDeletedOrRemoved(!deletedOrRemoved)
         }).catch(error => console.error(error));
     }
 
@@ -58,7 +58,7 @@ function UserBoxes() {
                             </p>
                             <button onClick={() => deleteBox(box.BoxId)}>Delete</button>
                             <button onClick={() => removeOwner(box.BoxId)}>Remove Owner</button>
-                            <hr/>
+                            <hr />
                         </>
                     )) :
                     <p>Nothing to see yet!</p>

@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {CircleMarker, Popup} from 'react-leaflet';
+import {CircleMarker, Popup, useMap} from 'react-leaflet';
 import axios from "axios";
 import Cookies from "js-cookie";
 
@@ -8,7 +8,7 @@ export function BoxLocation() {
 
     useEffect(() => {
         axios.get(`http://localhost:5551/getUserBoxes/${Cookies.get('id')}`).then(res => {
-            // console.log(res);
+            console.log(res);
             setUserBoxes(res.data.allBoxes);
         }).catch(error => console.error(error));
     }, [])

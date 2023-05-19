@@ -103,7 +103,8 @@ function Entries() {
                                 Lat: {entry.Latitude}<br/>
                                 Lon: {entry.Longitude}<br/>
                                 Owner: {entry.LoggerId}<br/>
-                                time: {entry.TimeAccessed}
+                                Time: {entry.TimeAccessed}<br />
+                                Type: {entry.EntryType}
                             </p>
                             <button onClick={() => deleteEntry(entry.ID)}>Delete</button>
                             <hr/>

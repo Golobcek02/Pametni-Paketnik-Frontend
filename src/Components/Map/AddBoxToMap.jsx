@@ -3,7 +3,7 @@ import Cookies from 'js-cookie';
 import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 
-export function AddBoxToMap() {
+export function AddBoxToMap(props) {
     const [smartBoxID, setSmartBoxID] = useState('');
     const [address, setAddress] = useState('');
     const navigate = useNavigate();
@@ -28,9 +28,8 @@ export function AddBoxToMap() {
                             LoggerId: Cookies.get('id').toString(),
                             EntryType: "boxAdded"
                         }).then(r => { console.log(r); })
-
+                        window.location.reload();
                         console.log(res);
-                        navigate("/map")
                     }
                 }).catch(error => {
                     console.error(error);
