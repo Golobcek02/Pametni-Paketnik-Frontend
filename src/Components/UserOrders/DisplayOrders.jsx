@@ -26,7 +26,7 @@ export function DisplayOrders() {
                     <p>Order ID: {order.ID}</p>
                     <p>Status: {order.Status}</p>
                     {order.PageUrl && <p>Page URL: {order.PageUrl}</p>} {/* Conditional rendering for PageUrl */}
-                    {order.DeliveryTime && <p>Delivery Time: {order.DeliveryTime}</p>} {/* Conditional rendering for DeliveryTime */}
+                    <p>Delivery Time: {order.DeliveryTime ? order.DeliveryTime : 'pending'}</p>
                     {order.Items && (
                         <div>
                             <p>Items:</p>

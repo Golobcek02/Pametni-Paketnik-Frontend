@@ -58,13 +58,6 @@ export function AddOrder() {
                 value={pageUrl}
                 onChange={(e) => setPageUrl(e.target.value)}
             />
-            <label htmlFor="deliveryTime">Delivery Time:</label>
-            <input
-                type="text"
-                id="deliveryTime"
-                value={deliveryTime}
-                onChange={(e) => setDeliveryTime(e.target.value)}
-            />
             <label htmlFor="items">Items:</label>
             <input
                 type="text"
