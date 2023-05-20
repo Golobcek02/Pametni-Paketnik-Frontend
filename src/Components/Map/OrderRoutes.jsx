@@ -73,6 +73,13 @@ export function OrderRoutes(props) {
 
                         const polyline = L.polyline(routeCoordinates, { 'color': getRandomColor() }).addTo(props.map);
                         props.map.fitBounds(polyline.getBounds());
+
+                        const hours = Math.floor((res.data.results[0].time + 900) / 3600);
+                        res.data.results[0].time %= 3600;
+                        const minutes = Math.floor(res.data.results[0].time / 60);
+                        const remainingSeconds = Math.round(res.data.results[0].time % 60);
+
+                        polyline.bindPopup("Estimated time of delivery: " + hours + "h " + minutes + "min " + remainingSeconds + "sec<br>Total route distance: " + res.data.results[0].distance / 1000 + "km");
                     }).catch(e => { console.log(e) })
             });
         }
