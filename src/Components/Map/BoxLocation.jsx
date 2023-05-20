@@ -3,7 +3,7 @@ import {CircleMarker, Popup, useMap} from 'react-leaflet';
 import axios from "axios";
 import Cookies from "js-cookie";
 import {OrderRoutes} from "./OrderRoutes";
-
+const centralStations = require('../../centralStations.json');
 export function BoxLocation() {
     const [userBoxes, setUserBoxes] = useState([]);
     const map= useMap();
@@ -28,6 +28,18 @@ export function BoxLocation() {
                         </Popup>
                     </CircleMarker>
 
+                ))
+            }
+            {
+                centralStations.map(station => (
+                    <CircleMarker key={station.place.name} center={[station.place.location.latitude, station.place.location.longitude]}
+                                  pathOptions={{color: "red"}} radius={10}>
+                        <Popup key={station.place.name} keepInView={false} autoPan={false}>
+                            <p>
+                                Station: {station.place.name}
+                            </p>
+                        </Popup>
+                    </CircleMarker>
                 ))
             }
             <OrderRoutes map={map} boxes={userBoxes}/>

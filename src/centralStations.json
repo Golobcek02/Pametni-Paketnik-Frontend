@@ -1,0 +1,20 @@
+[
+  {
+    "place": {
+      "name": "Maribor",
+      "location": {
+        "latitude": 46.5546,
+        "longitude": 15.6467
+      }
+    }
+  },
+  {
+    "place": {
+      "name": "Ljubljana",
+      "location": {
+        "latitude": 46.0569,
+        "longitude": 14.5058
+      }
+    }
+  }
+]
