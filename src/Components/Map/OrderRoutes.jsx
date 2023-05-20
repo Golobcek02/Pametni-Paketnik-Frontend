@@ -71,7 +71,7 @@ export function OrderRoutes(props) {
                             }
                         });
 
-                        const polyline = L.polyline(routeCoordinates, { 'color': getRandomColor() }).addTo(props.map);
+                        const polyline = L.polyline(routeCoordinates, { 'color': getRandomColor(), weight: 6 }).addTo(props.map);
                         props.map.fitBounds(polyline.getBounds());
 
                         const hours = Math.floor((res.data.results[0].time + 900) / 3600);
