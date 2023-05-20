@@ -20,7 +20,7 @@ export function BoxLocation() {
             {
                 userBoxes.map(box => (
                     <CircleMarker key={box.BoxId} center={[box.Latitude, box.Longitude]}
-                                  pathOptions={{color: "#353a3b"}} radius={9}>
+                                  pathOptions={{color: "#353a3b"}} radius={9.5}>
                         <Popup key={box.BoxId} keepInView={false} autoPan={false}>
                             <p>
                                 Box: {box.BoxId}

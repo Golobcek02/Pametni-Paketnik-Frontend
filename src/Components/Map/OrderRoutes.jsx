@@ -38,14 +38,14 @@ export function OrderRoutes(props) {
     }
 
     const yourBoxStop = L.icon({
-        iconUrl: 'logo512.png',
-        iconSize: [32, 32],
+        iconUrl: 'your_box.png',
+        iconSize: [28, 28],
     });
     const intermediateStopIcon = L.icon({
         iconUrl: "box.png",
-        iconSize: [24, 24],
+        iconSize: [28, 28],
     });
-    const finalStopIcon = L.icon({
+    const currentStopIcon = L.icon({
         iconUrl: "truck.svg",
         iconSize: [28, 28],
     });
@@ -59,26 +59,17 @@ export function OrderRoutes(props) {
                     .then((res) => {
                         const routeCoordinates = res.data.results[0].geometry;
                         stop.forEach((coords, index) => {
-                            const LatLon=coords.split(",");
+                            const LatLon = coords.split(",");
+                            const userBoxOnOrder = props.boxes.filter(value => value.Latitude === parseFloat(LatLon[0]) && value.Longitude === parseFloat(LatLon[1]));
 
-                            if (index === 0) {
-                                const marker = L.marker([parseFloat(LatLon[0]), parseFloat(LatLon[1])], { icon: finalStopIcon }).addTo(props.map);
-                            }else if(true){
-
-                            } 
-                            else {
-                                const marker = L.marker(coords[index], { icon: intermediateStopIcon }).addTo(props.map);
+                            if (userBoxOnOrder.length > 0) {
+                                L.marker([userBoxOnOrder[0].Latitude + 0.00005, userBoxOnOrder[0].Longitude + 0.00005], { icon: yourBoxStop }).addTo(props.map);
+                            } else if (index === 0) {
+                                L.marker([parseFloat(LatLon[0]), parseFloat(LatLon[1])], { icon: currentStopIcon }).addTo(props.map);
+                            } else {
+                                L.marker([parseFloat(LatLon[0]), parseFloat(LatLon[1])], { icon: intermediateStopIcon }).addTo(props.map);
                             }
-                            //console.log(coords)
                         });
-
-                        props.boxes.forEach((box, i) => {
-                            const regex1 = new RegExp(box.Latitude+","+box.Longitude);
-                            const userBoxOnOrder = stops[0].filter(value => regex1.test(value));
-                            if(userBoxOnOrder.length>0){
-                                const marker = L.marker([box.Latitude, box.Longitude], { icon: yourBoxStop }).addTo(props.map);
-                            }
-                        })
 
                         const polyline = L.polyline(routeCoordinates, { 'color': getRandomColor() }).addTo(props.map);
                         props.map.fitBounds(polyline.getBounds());
