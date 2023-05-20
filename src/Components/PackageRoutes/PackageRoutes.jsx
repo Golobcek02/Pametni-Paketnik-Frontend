@@ -41,16 +41,16 @@ export function PackageRoutes() {
     function handleStationAndBoxIdsSubmit() {
         const station = centralStations.find(station => station.place.name === selectedStation);
         if (station && boxIds) {
-            const stationString = `${station.place.name}: ${station.place.location.longitude}, ${station.place.location.latitude}`;
-            const boxIdsString = boxIds.split(',').join(' | ');
-            const finalString = `${stationString} | ${boxIdsString}`;
+            const stationString = `${station.place.name}:${station.place.location.longitude},${station.place.location.latitude}`;
+            const boxIdsString = boxIds.split(',').join('|').replace(/ /g, "");
+            const finalString = `${stationString}|${boxIdsString}`;
             console.log(finalString);
 
             axios.post('http://localhost:5551/addPackageRoute', { route: finalString })
                 .then(response => {
                     console.log(response.data); // Successfully saved
                     // After saving the route, update the status of orders
-                    updateOrderStatus();
+                    //updateOrderStatus();
                 })
                 .catch(error => {
                     console.error(error); // Error occurred while saving
