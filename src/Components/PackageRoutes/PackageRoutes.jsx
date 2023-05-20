@@ -5,7 +5,7 @@ const centralStations = require('../../centralStations.json');
 export function PackageRoutes() {
     const [nonParsedRoutes, setNonParsedRoutes] = useState("");
     const [boxId, setBoxId] = useState(0);
-    const [boxIdInput, setBoxIdInput] = useState(0);
+    const [routeIdInput, setRouteIdInput] = useState("");
     const [selectedStation, setSelectedStation] = useState(null);
     const [boxIds, setBoxIds] = useState('');
 
@@ -112,7 +112,7 @@ export function PackageRoutes() {
     }
 
     function popFirstStop() {
-        axios.post(`http://localhost:5551/popFirstStop/${boxIdInput}`).then((res) => {
+        axios.post(`http://localhost:5551/popFirstStop/${routeIdInput}`).then((res) => {
             console.log(res);
         }).catch((err) => {
             console.log(err);
@@ -137,9 +137,9 @@ export function PackageRoutes() {
                     type="text"
                     id="username"
                     onChange={(e) => {
-                        setBoxIdInput(parseInt(e.target.value));
+                        setRouteIdInput(e.target.value);
                     }}
-                    placeholder="Enter Box ID"
+                    placeholder="Enter Route ID"
                 />
                 <button type="submit" onClick={() => popFirstStop()}>
                     Pop First Stop
