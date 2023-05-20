@@ -1,41 +1,15 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
-
+const centralStations = require('../../centralStations.json');
 export function PackageRoutes() {
     const [nonParsedRoutes, setNonParsedRoutes] = useState("");
     const [boxId, setBoxId] = useState(0);
     const [boxIdInput, setBoxIdInput] = useState(0);
+    const [selectedStation, setSelectedStation] = useState(null);
+    const [boxIds, setBoxIds] = useState('');
 
     /*function addRoutes() {
-        const [nonParsedRoutes, setNonParsedRoutes] = useState("");
-        const [boxId, setBoxId] = useState(0);
-        const [boxIdInput, setBoxIdInput] = useState(0);
-
-        const parsedRoutes = nonParsedRoutes.split(",").map(route => route.trim());
-        let coordinates = []
-        parsedRoutes.map((location, i) => {
-            axios.post(`https://api.geoapify.com/v1/geocode/search?text=${location}&format=json&apiKey=635b84cbf55241c6b792a66cd02745a9`).then((res) => {
-                console.log(res)
-                coordinates[i] = `${res.data.results[0].lat}|${res.data.results[0].lat}`
-            })
-        })
-        console.log("coordinates", coordinates)
-        axios.post("http://localhost:5551/addPackageRoute", {Stops: coordinates}).then((res) => {
-            console.log(res)
-        }).catch((err) => {
-            console.log(err)
-        })
-    }
-
-    /*function addOrder() {
-        axios.post("http://localhost:5551/addOrder", {BoxId: parseInt(boxId), Status: "Pending"}).then((res) => {
-            console.log(res)
-        }).catch((err) => {
-            console.log(err)
-        })
-    }*/
-    function addRoutes() {
         const parsedRoutes = nonParsedRoutes.split(",").map(route => route.trim());
         let coordinates = []
         parsedRoutes.map((location, i) => {
@@ -63,8 +37,30 @@ export function PackageRoutes() {
                 console.log(err)
             })
         }
+    }*/
+    function handleStationAndBoxIdsSubmit() {
+        const station = centralStations.find(station => station.place.name === selectedStation);
+        if (station && boxIds) {
+            const stationString = `${station.place.name}: ${station.place.location.longitude}, ${station.place.location.latitude}`;
+            const boxIdsString = boxIds.split(',').join(' | ');
+            const finalString = `${stationString} | ${boxIdsString}`;
+            console.log(finalString);
+
+            axios.post('http://localhost:5551/addPackageRoute', { route: finalString })
+                .then(response => {
+                    console.log(response.data); // Successfully saved
+                    // After saving the route, update the status of orders
+                    updateOrderStatus();
+                })
+                .catch(error => {
+                    console.error(error); // Error occurred while saving
+                });
+        } else {
+            console.error('Please select a station and input box IDs');
+        }
     }
-    function updateOrder() {
+
+    /*function updateOrder() {
         const parsedRoutes = nonParsedRoutes.split(",").map((route) => route.trim());
         const coordinates = Array(parsedRoutes.length);
 
@@ -102,6 +98,17 @@ export function PackageRoutes() {
                 console.log(error);
             });
 
+    }*/
+    function updateOrderStatus() {
+        const boxIdsArray = boxIds.split(',');
+        Promise.all(boxIdsArray.map(id => {
+            const body = { boxId: id, status: 'In Route' };
+            return axios.post(`http://localhost:5551/updateOrderStatus`, body);
+        })).then(responses => {
+            console.log(responses);
+        }).catch(err => {
+            console.error(err);
+        });
     }
 
     function popFirstStop() {
@@ -130,47 +137,30 @@ export function PackageRoutes() {
                     type="text"
                     id="username"
                     onChange={(e) => {
-                        setNonParsedRoutes(e.target.value);
-                    }}
-                    placeholder="Enter Routes Divided by ,"
-                />
-                <button type="submit" onClick={() => addRoutes()}>
-                    Post
-                </button>
-            </div>
-
-            <div>
-                <input
-                    type="text"
-                    id="username"
-                    onChange={(e) => {
-                        setBoxId(parseInt(e.target.value));
-                    }}
-                    placeholder="Enter Box ID for Route"
-                />
-                <input
-                    type="text"
-                    id="username"
-                    onChange={(e) => {
-                        setNonParsedRoutes(e.target.value);
-                    }}
-                    placeholder="Route"
-                />
-                <button type="submit" onClick={() => updateOrder()}>
-                    Post
-                </button>
-            </div>
-            <div>
-                <input
-                    type="text"
-                    id="username"
-                    onChange={(e) => {
                         setBoxIdInput(parseInt(e.target.value));
                     }}
                     placeholder="Enter Box ID"
                 />
                 <button type="submit" onClick={() => popFirstStop()}>
                     Pop First Stop
+                </button>
+            </div>
+            <div>
+                <select onChange={e => setSelectedStation(e.target.value)}>
+                    <option value="">-- Select a Station --</option>
+                    {
+                        centralStations.map(station => (
+                            <option value={station.place.name}>{station.place.name}</option>
+                        ))
+                    }
+                </select>
+                <input
+                    type="text"
+                    onChange={e => setBoxIds(e.target.value)}
+                    placeholder="Enter Box IDs divided by comma"
+                />
+                <button type="submit" onClick={() => handleStationAndBoxIdsSubmit()}>
+                    Submit
                 </button>
             </div>
         </>
