@@ -3,7 +3,6 @@ import {MapContainer, TileLayer} from "react-leaflet";
 import 'leaflet/dist/leaflet.css';
 import {AddBoxToMap} from "./AddBoxToMap";
 import {BoxLocation} from "./BoxLocation";
-import {OrderRoutes} from "./OrderRoutes";
 
 export function Map() {
     const [map, setMap] = useState(null);
@@ -26,7 +25,6 @@ export function Map() {
 
     return (
         <div style={{height: "calc(100vh - 160px)", width: "100%"}}>
-            <OrderRoutes/>
             <AddBoxToMap/>
             {displayMap}
         </div>

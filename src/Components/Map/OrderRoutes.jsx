@@ -1,7 +1,7 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
-import {useMap} from "react-leaflet";
+import { useMap } from "react-leaflet";
 import L from "leaflet"
 
 export function OrderRoutes(props) {
@@ -37,12 +37,12 @@ export function OrderRoutes(props) {
         return `rgb(${r},${g},${b})`;
     }
 
-    const firstStopIcon = L.icon({
-        iconUrl: 'truck.svg',
+    const yourBoxStop = L.icon({
+        iconUrl: 'logo512.png',
         iconSize: [32, 32],
     });
     const intermediateStopIcon = L.icon({
-        iconUrl: "truck.svg",
+        iconUrl: "box.png",
         iconSize: [24, 24],
     });
     const finalStopIcon = L.icon({
@@ -54,22 +54,35 @@ export function OrderRoutes(props) {
         if (stops.length > 0) {
             stops.forEach((stop) => {
                 const stopString = stop.join('|');
-                console.log(stopString);
                 // Perform other operations with the stop string
                 axios.get(`https://api.geoapify.com/v1/routing?waypoints=${stopString}&mode=light_truck&format=json&apiKey=635b84cbf55241c6b792a66cd02745a9`)
                     .then((res) => {
-                        console.log(res)
                         const routeCoordinates = res.data.results[0].geometry;
-                        routeCoordinates.forEach((coords, index) => {
-                            //     const markerOptions = {
-                            //         icon: index === 0 ? firstStopIcon : index === routeCoordinates.length - 1 ? finalStopIcon : intermediateStopIcon,
-                            //     };
-                            //     console.log(coords)
-                            const marker = L.marker(coords[index], {icon: finalStopIcon}).addTo(props.map);
+                        stop.forEach((coords, index) => {
+                            const LatLon=coords.split(",");
+
+                            if (index === 0) {
+                                const marker = L.marker([parseFloat(LatLon[0]), parseFloat(LatLon[1])], { icon: finalStopIcon }).addTo(props.map);
+                            }else if(true){
+
+                            } 
+                            else {
+                                const marker = L.marker(coords[index], { icon: intermediateStopIcon }).addTo(props.map);
+                            }
+                            //console.log(coords)
                         });
-                        const polyline = L.polyline(routeCoordinates, {'color': getRandomColor()}).addTo(props.map);
+
+                        props.boxes.forEach((box, i) => {
+                            const regex1 = new RegExp(box.Latitude+","+box.Longitude);
+                            const userBoxOnOrder = stops[0].filter(value => regex1.test(value));
+                            if(userBoxOnOrder.length>0){
+                                const marker = L.marker([box.Latitude, box.Longitude], { icon: yourBoxStop }).addTo(props.map);
+                            }
+                        })
+
+                        const polyline = L.polyline(routeCoordinates, { 'color': getRandomColor() }).addTo(props.map);
                         props.map.fitBounds(polyline.getBounds());
-                    })
+                    }).catch(e => { console.log(e) })
             });
         }
     }, [stops]);

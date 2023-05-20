@@ -2,9 +2,11 @@ import React, {useState, useEffect} from 'react';
 import {CircleMarker, Popup, useMap} from 'react-leaflet';
 import axios from "axios";
 import Cookies from "js-cookie";
+import {OrderRoutes} from "./OrderRoutes";
 
 export function BoxLocation() {
     const [userBoxes, setUserBoxes] = useState([]);
+    const map= useMap();
 
     useEffect(() => {
         axios.get(`http://localhost:5551/getUserBoxes/${Cookies.get('id')}`).then(res => {
@@ -28,6 +30,7 @@ export function BoxLocation() {
 
                 ))
             }
+            <OrderRoutes map={map} boxes={userBoxes}/>
         </>
     );
 }
