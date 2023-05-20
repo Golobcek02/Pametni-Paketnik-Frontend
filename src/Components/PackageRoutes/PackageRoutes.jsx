@@ -82,6 +82,7 @@ export function PackageRoutes() {
         )
             .then(() => {
                 console.log(coordinates);
+                console.log("JSON Body: ", coordinates);
                 axios.post(`http://localhost:5551/updateOrderRoute/${boxId}`, coordinates).then((res) => {
                     axios.post(`http://localhost:5551/newEntry`, {
                         DeliveryId: 2,
