@@ -36,7 +36,7 @@ export function DisplayOrders() {
                                 ))}
                             </ul>
                         </div>
-                    )} {/* Conditional rendering and mapping for Items */}
+                    )} {}
                 </div>
             ))}
         </div>
