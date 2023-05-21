@@ -41,7 +41,7 @@ export function PackageRoutes() {
     function handleStationAndBoxIdsSubmit() {
         const station = centralStations.find(station => station.place.name === selectedStation);
         if (station && boxIds) {
-            const stationString = `${station.place.name}:${station.place.location.longitude},${station.place.location.latitude}`;
+            const stationString = `${station.place.name}:${station.place.location.latitude},${station.place.location.longitude}`;
             const boxIdsString = boxIds.split(',').join('|').replace(/ /g, "");
             const finalString = `${stationString}|${boxIdsString}`;
             console.log(finalString);

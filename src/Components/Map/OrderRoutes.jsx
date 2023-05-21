@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { useMap } from "react-leaflet";
-import L from "leaflet"
+import L, { latLng } from "leaflet"
 
 export function OrderRoutes(props) {
 
@@ -15,14 +15,10 @@ export function OrderRoutes(props) {
         axios
             .get(`http://localhost:5551/getUserOrders/${Cookies.get('id')}`)
             .then((res) => {
-                const orders = res.data.orders;
-                const stopsArray = orders.map((order) => {
-                    if (order.PackageRoute && order.PackageRoute.Stops) {
-                        return order.PackageRoute.Stops;
-                    }
-                    return [];
+                const stopsArray = res.data.map((order) => {
+                    return order.Stops
                 });
-                console.log(stopsArray)
+                console.log(stopsArray);
                 setStops(stopsArray);
             })
             .catch((err) => {
@@ -53,14 +49,18 @@ export function OrderRoutes(props) {
     useEffect(() => {
         if (stops.length > 0) {
             stops.forEach((stop) => {
-                const stopString = stop.join('|');
+                const stopString = stop.join('|').replace(/ /g, "");
+                console.log(stopString);
                 // Perform other operations with the stop string
                 axios.get(`https://api.geoapify.com/v1/routing?waypoints=${stopString}&mode=light_truck&format=json&apiKey=635b84cbf55241c6b792a66cd02745a9`)
                     .then((res) => {
                         const routeCoordinates = res.data.results[0].geometry;
                         stop.forEach((coords, index) => {
-                            const LatLon = coords.split(",");
-                            const userBoxOnOrder = props.boxes.filter(value => value.Latitude === parseFloat(LatLon[0]) && value.Longitude === parseFloat(LatLon[1]));
+                            const LatLon = coords.replace(/ /g, "").split(",");
+                            console.log(LatLon);
+                            const userBoxOnOrder = props.boxes.forEach(element => {
+                                return element.filter(value => value.Latitude === parseFloat(LatLon[0]) && value.Longitude === parseFloat(LatLon[1]));
+                            });
 
                             if (userBoxOnOrder.length > 0) {
                                 L.marker([userBoxOnOrder[0].Latitude + 0.00005, userBoxOnOrder[0].Longitude + 0.00005], { icon: yourBoxStop }).addTo(props.map);
