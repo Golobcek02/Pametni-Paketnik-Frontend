@@ -57,11 +57,8 @@ export function OrderRoutes(props) {
                         const routeCoordinates = res.data.results[0].geometry;
                         stop.forEach((coords, index) => {
                             const LatLon = coords.replace(/ /g, "").split(",");
-                            console.log(LatLon);
-                            const userBoxOnOrder = props.boxes.forEach(element => {
-                                return element.filter(value => value.Latitude === parseFloat(LatLon[0]) && value.Longitude === parseFloat(LatLon[1]));
-                            });
-
+                            const userBoxOnOrder = props.boxes.filter(value => value.Latitude.toFixed(8) === parseFloat(LatLon[0]).toFixed(8) && value.Longitude.toFixed(8) === parseFloat(LatLon[1]).toFixed(8));
+                            
                             if (userBoxOnOrder.length > 0) {
                                 L.marker([userBoxOnOrder[0].Latitude + 0.00005, userBoxOnOrder[0].Longitude + 0.00005], { icon: yourBoxStop }).addTo(props.map);
                             } else if (index === 0) {
@@ -74,7 +71,7 @@ export function OrderRoutes(props) {
                         const polyline = L.polyline(routeCoordinates, { 'color': getRandomColor(), weight: 6 }).addTo(props.map);
                         props.map.fitBounds(polyline.getBounds());
 
-                        const hours = Math.floor((res.data.results[0].time + 900) / 3600);
+                        const hours = Math.floor((res.data.results[0].time + 1200) / 3600);
                         res.data.results[0].time %= 3600;
                         const minutes = Math.floor(res.data.results[0].time / 60);
                         const remainingSeconds = Math.round(res.data.results[0].time % 60);
