@@ -4,10 +4,10 @@ import AppRouter from "./Components/Routes/Router";
 
 function App() {
     return (
-        <div>
+        <>
             <Navbar/>
             <AppRouter/>
-        </div>
+        </>
     );
 }
 

@@ -2,7 +2,7 @@ import React from 'react';
 import {Routes, Route} from 'react-router-dom';
 import Login from "../User/Login";
 import Register from "../User/Register";
-import {Home} from "../Home";
+import {Home} from "../Home/Home";
 import Entries from "../SmartBox/Entries";
 import UserBoxes from "../SmartBox/UserBoxes";
 import {AccessList} from "../AccessList/AccessList";
