@@ -3,7 +3,7 @@ import Cookies from "js-cookie";
 import './navbar.css'
 
 function Navbar() {
-
+    const admin = true
     const [loggedIn, setLoggedIn] = useState(false)
 
     useEffect(() => {
@@ -21,22 +21,18 @@ function Navbar() {
     }
 
 
-    return (
-        loggedIn ?
-            <>
-                <div className="container brown highlightTextOut" style={{height: "10%"}}>
-                    <a alt="ENTRIES" href="/entries">ENTRIES</a>
-                    <a alt="BOXES" href="/userBoxes">BOXES</a>
-                    <a alt="ACCESS LIST" href="/accessList">ACCESS LIST</a>
-                    <a alt="MAP" href="/map">MAP</a>
-                    <a alt="PACKAGE ROUTES" href="/packageRoutes">PACKAGE ROUTES</a>
-                    <a alt="ORDERS" href="/userOrders">ORDERS</a>
-                    <a alt="ADD ORDER" href="/addOrder">ADD ORDER</a>
-                    <a alt="LOG OUT" style={{color: '#DF2E38'}} href="/" onClick={() => logOut()}>LOG OUT</a>
-                </div>
-            </> :
-            <></>
-    )
+    return (loggedIn ? <>
+        <div className="container brown highlightTextOut" style={{height: "10%"}}>
+            <a alt="ENTRIES" href="/entries">ENTRIES</a>
+            <a alt="BOXES & ACCESSES" href="/userBoxes">BOXES & ACCESSES</a>
+            {/*<a alt="ACCESS LIST" href="/accessList">ACCESS LIST</a>*/}
+            <a alt="MAP" href="/map">MAP</a>
+            <a alt="ORDERS" href="/userOrders">ORDERS</a>
+            {admin ? <><a alt="PACKAGE ROUTES" href="/packageRoutes">PACKAGE ROUTES</a>
+                <a alt="ADD ORDER" href="/addOrder">ADD ORDER</a> </> : <></>}
+            <a alt="LOG OUT" style={{color: '#DF2E38'}} href="/" onClick={() => logOut()}>LOG OUT</a>
+        </div>
+    </> : <></>)
 }
 
 export default Navbar;

@@ -19,7 +19,7 @@ function AppRouter() {
             <Route exact path="/" element={<Home/>}/>
             <Route path="/entries" element={<Entries/>}/>
             <Route path="/userBoxes" element={<UserBoxes/>}/>
-            <Route path="/accessList" element={<AccessList/>}/>
+            {/*<Route path="/accessList" element={<AccessList/>}/>*/}
             <Route path="/map" element={<Map/>}/>
             <Route path="/packageRoutes" element={<PackageRoutes/>}/>
             <Route path="/userOrders" element={<DisplayOrders/>}/>
