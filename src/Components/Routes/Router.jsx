@@ -5,11 +5,11 @@ import Register from "../User/Register";
 import {Home} from "../Home/Home";
 import {Entries} from "../SmartBox/Entries";
 import UserBoxes from "../SmartBox/UserBoxes";
-import {AccessList} from "../AccessList/AccessList";
 import {Map} from "../Map/Map";
 import {PackageRoutes} from "../PackageRoutes/PackageRoutes";
 import {DisplayOrders} from "../UserOrders/DisplayOrders";
 import {AddOrder} from "../UserOrders/AddOrder";
+import Orders from "../UserOrders/Orders";
 
 function AppRouter() {
     return (
@@ -22,7 +22,7 @@ function AppRouter() {
             {/*<Route path="/accessList" element={<AccessList/>}/>*/}
             <Route path="/map" element={<Map/>}/>
             <Route path="/packageRoutes" element={<PackageRoutes/>}/>
-            <Route path="/userOrders" element={<DisplayOrders/>}/>
+            <Route path="/userOrders" element={<Orders/>}/>
             <Route path="/addOrder" element={<AddOrder/>}/>
         </Routes>
     );
