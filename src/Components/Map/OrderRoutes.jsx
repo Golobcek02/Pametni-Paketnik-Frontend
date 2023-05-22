@@ -13,7 +13,7 @@ export function OrderRoutes(props) {
     useEffect(() => {
         console.log(props)
         axios
-            .get(`http://localhost:5551/getUserOrders/${Cookies.get('id')}`)
+            .get(`http://localhost:5551/getUserOrderRoutes/${Cookies.get('id')}`)
             .then((res) => {
                 const stopsArray = res.data.map((order) => {
                     return order.Stops
