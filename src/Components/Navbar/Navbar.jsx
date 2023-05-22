@@ -68,7 +68,7 @@ export default Navbar;
 }
 {/*    <li>*/
 }
-{/*        <Link to="/entries">Entries</Link>*/
+{/*        <Link to="/entries">Entries_old</Link>*/
 }
 {/*    </li>*/
 }
