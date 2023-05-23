@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
+import './orders.css'
 
 export function DisplayOrders() {
     const [orders, setOrders] = useState([]);
@@ -21,7 +22,7 @@ export function DisplayOrders() {
     }, []);
 
     return (
-        <div>
+        <div className="container">
             {orders.length !== 0 ?
                 <>
                     <h1>User Orders</h1>

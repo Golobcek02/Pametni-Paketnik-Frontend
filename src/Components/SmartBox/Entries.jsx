@@ -11,8 +11,9 @@ export function Entries() {
     useEffect(() => {
         axios.get(`http://localhost:5551/getEntries/${Cookies.get('id')}`).then(res => {
             console.log(res.data)
-            setEntries(res.data.reverse());
-        });
+            if(res.data !== null) {
+                setEntries(res.data.reverse());
+            }});
     }, [newEntry]);
 
 
@@ -54,6 +55,6 @@ export function Entries() {
                         </a>
                     </div>
                 </div>
-            </div>))) : (<div className="no-entries">YOU HAVE NO ENTRIES</div>)}
+            </div>))) : (<div className="entries-container">YOU HAVE NO ENTRIES</div>)}
         </div>)
 }

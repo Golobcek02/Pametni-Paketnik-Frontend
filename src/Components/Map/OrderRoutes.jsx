@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
-import { useMap } from "react-leaflet";
-import L, { latLng } from "leaflet"
+import {useMap} from "react-leaflet";
+import L, {latLng} from "leaflet"
 
 export function OrderRoutes(props) {
 
@@ -34,16 +34,13 @@ export function OrderRoutes(props) {
     }
 
     const yourBoxStop = L.icon({
-        iconUrl: 'your_box.png',
-        iconSize: [28, 28],
+        iconUrl: 'your_box.png', iconSize: [28, 28],
     });
     const intermediateStopIcon = L.icon({
-        iconUrl: "box.png",
-        iconSize: [28, 28],
+        iconUrl: "box.png", iconSize: [28, 28],
     });
     const currentStopIcon = L.icon({
-        iconUrl: "truck.svg",
-        iconSize: [28, 28],
+        iconUrl: "truck.svg", iconSize: [28, 28],
     });
 
     useEffect(() => {
@@ -58,17 +55,19 @@ export function OrderRoutes(props) {
                         stop.forEach((coords, index) => {
                             const LatLon = coords.replace(/ /g, "").split(",");
                             const userBoxOnOrder = props.boxes.filter(value => value.Latitude.toFixed(8) === parseFloat(LatLon[0]).toFixed(8) && value.Longitude.toFixed(8) === parseFloat(LatLon[1]).toFixed(8));
-                            
+
                             if (userBoxOnOrder.length > 0) {
-                                L.marker([userBoxOnOrder[0].Latitude + 0.00005, userBoxOnOrder[0].Longitude + 0.00005], { icon: yourBoxStop }).addTo(props.map);
+                                L.marker([userBoxOnOrder[0].Latitude + 0.00005, userBoxOnOrder[0].Longitude + 0.00005], {icon: yourBoxStop}).addTo(props.map);
                             } else if (index === 0) {
-                                L.marker([parseFloat(LatLon[0]), parseFloat(LatLon[1])], { icon: currentStopIcon }).addTo(props.map);
+                                L.marker([parseFloat(LatLon[0]), parseFloat(LatLon[1])], {icon: currentStopIcon}).addTo(props.map);
                             } else {
-                                L.marker([parseFloat(LatLon[0]), parseFloat(LatLon[1])], { icon: intermediateStopIcon }).addTo(props.map);
+                                L.marker([parseFloat(LatLon[0]), parseFloat(LatLon[1])], {icon: intermediateStopIcon}).addTo(props.map);
                             }
                         });
 
-                        const polyline = L.polyline(routeCoordinates, { 'color': getRandomColor(), weight: 6 }).addTo(props.map);
+                        const polyline = L.polyline(routeCoordinates, {
+                            'color': getRandomColor(), weight: 6
+                        }).addTo(props.map);
                         props.map.fitBounds(polyline.getBounds());
 
                         const hours = Math.floor((res.data.results[0].time + 1200) / 3600);
@@ -77,14 +76,14 @@ export function OrderRoutes(props) {
                         const remainingSeconds = Math.round(res.data.results[0].time % 60);
 
                         polyline.bindPopup("Estimated time of delivery: " + hours + "h " + minutes + "min " + remainingSeconds + "sec<br>Total route distance: " + res.data.results[0].distance / 1000 + "km");
-                    }).catch(e => { console.log(e) })
+                    }).catch(e => {
+                    console.log(e)
+                })
             });
         }
     }, [stops]);
 
 
-    return (
-        <>
-        </>
-    )
+    return (<>
+        </>)
 }

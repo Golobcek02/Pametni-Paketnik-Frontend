@@ -62,7 +62,7 @@ function Sidebar() {
                     <ul className="list-unstyled CTAs">
                         {admin ?
                             <li style={{listStyle: 'none'}}>
-                                <a href="https://bootstrapious.com/tutorial/files/sidebar.zip" className="download">
+                                <a href="/admin" className="download">
                                     ADMIN
                                 </a>
                             </li> : <></>}

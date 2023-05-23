@@ -3,12 +3,13 @@ import {MapContainer, TileLayer} from "react-leaflet";
 import 'leaflet/dist/leaflet.css';
 import {AddBoxToMap} from "./AddBoxToMap";
 import {BoxLocation} from "./BoxLocation";
+import './map.css'
+import OrdersOnMap from "./OrdersOnMap";
 
 export function Map() {
     const [map, setMap] = useState(null);
 
-    const displayMap = useMemo(() => (
-        <MapContainer
+    const displayMap = useMemo(() => (<MapContainer
             center={[46.562511, 15.658693]}
             zoom={11}
             scrollWheelZoom={true}
@@ -20,13 +21,15 @@ export function Map() {
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
             <BoxLocation/>
-        </MapContainer>
-    ), []);
+        </MapContainer>), []);
 
-    return (
-        <div style={{height: "calc(100vh - 160px)", width: "100%"}}>
-            <AddBoxToMap/>
-            {displayMap}
-        </div>
-    );
+    return (<div className="container">
+            {/*<div className="box">*/}
+            <div style={{height: "calc(80vh - 160px)", width: "65%"}}>
+                {/*<AddBoxToMap/>*/}
+                {displayMap}
+                {/*</div>*/}
+            </div>
+            <OrdersOnMap/>
+        </div>);
 }

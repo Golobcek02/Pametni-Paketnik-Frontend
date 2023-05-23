@@ -10,6 +10,7 @@ import {PackageRoutes} from "../PackageRoutes/PackageRoutes";
 import {DisplayOrders} from "../UserOrders/DisplayOrders";
 import {AddOrder} from "../UserOrders/AddOrder";
 import Orders from "../UserOrders/Orders";
+import {Admin} from "../Admin/Admin";
 
 function AppRouter() {
     return (
@@ -22,8 +23,9 @@ function AppRouter() {
             {/*<Route path="/accessList" element={<AccessList/>}/>*/}
             <Route path="/map" element={<Map/>}/>
             <Route path="/packageRoutes" element={<PackageRoutes/>}/>
+            <Route path="/admin" element={<Admin/>}/>
             <Route path="/userOrders" element={<Orders/>}/>
-            <Route path="/addOrder" element={<AddOrder/>}/>
+            {/*<Route path="/addOrder" element={<AddOrder/>}/>*/}
         </Routes>
     );
 }
