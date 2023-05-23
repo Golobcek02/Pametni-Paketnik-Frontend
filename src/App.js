@@ -1,11 +1,10 @@
 import './App.css';
-import NewNavbar from "./Components/Navbar/NewNavbar";
+import NewNavbar from "./Components/Sidebar/Sidebar";
 
 function App() {
     return (
         <>
             <NewNavbar/>
-            {/*<AppRouter/>*/}
         </>
     );
 }

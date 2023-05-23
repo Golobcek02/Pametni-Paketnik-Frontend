@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import './styles.css';
+import './Sidebar.css';
 import {NavLink} from 'react-router-dom';
 import AppRouter from '../Routes/Router';
 import Cookies from "js-cookie";
@@ -78,9 +78,7 @@ function Sidebar() {
                     <AppRouter/>
                 </div>
             </div> :
-            <div id="content">
                 <AppRouter/>
-            </div>
     )
 }
 

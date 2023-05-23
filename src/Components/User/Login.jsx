@@ -1,9 +1,10 @@
-import axios from 'axios';
-import {useState} from "react"
-import {useNavigate} from 'react-router-dom';
+import {useState} from "react";
+import {useNavigate} from "react-router-dom";
+import axios from "axios";
 import Cookies from "js-cookie";
 
-function Login() {
+export function Login() {
+
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
@@ -19,23 +20,32 @@ function Login() {
                 expiryDate.setDate(expiryDate.getDate() + 7);
                 Cookies.set('id', res.data.ID, {expires: expiryDate});
                 Cookies.set('username', res.data.Username, {expires: expiryDate});
-                navigate("/");
+                navigate("/entries");
                 window.location.reload();
             }
         })
     }
 
     return (
-        <div>
-            <input type='text' id="username" onChange={(e) => {
-                setUsername(e.target.value)
-            }} placeholder="Enter Username"></input>
-            <input type='password' id="password" onChange={(e) => {
-                setPassword(e.target.value)
-            }} placeholder="Enter Password"></input>
-            <button type='submit' onClick={SubmitLogIn}>Post</button>
-        </div>
-    );
+        <>
+            <div className="form form-login">
+                <fieldset>
+                    <legend>Please, enter your email and password for login.</legend>
+                    <div className="input-block">
+                        <label htmlFor="login-email">Username</label>
+                        <input id="username" type="username" required onChange={(e) => {
+                            setUsername(e.target.value)
+                        }}/>
+                    </div>
+                    <div className="input-block">
+                        <label htmlFor="login-password">Password</label>
+                        <input id="login-password" type="password" required onChange={(e) => {
+                            setPassword(e.target.value)
+                        }}/>
+                    </div>
+                </fieldset>
+                <button type="submit" className="btn-login" onClick={()=>SubmitLogIn()}>Login</button>
+            </div>
+        </>
+    )
 }
-
-export default Login;

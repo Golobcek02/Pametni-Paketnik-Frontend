@@ -1,5 +1,5 @@
-import {PackageRoutes} from "../PackageRoutes/PackageRoutes";
-import {AddOrder} from "../UserOrders/AddOrder";
+import {PackageRoutes} from "./PackageRoutes";
+import {AddOrder} from "./AddOrder";
 
 export function Admin() {
     return (
