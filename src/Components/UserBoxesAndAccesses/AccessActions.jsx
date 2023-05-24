@@ -83,7 +83,7 @@ export function AccessActions(props) {
     }, [username, boxId, props])
 
     return (<>
-        <div className="action-form">
+        <div className="action-form" style={{height: "fit-content"}}>
             <div className="header">
                 <label className="title">Grant, Revoke User Access To Your Box or Remove Your Box</label>
             </div>

@@ -18,7 +18,7 @@ export function AddBox() {
 
     return (<>
             <div className="action-form"
-                 style={{width: "fit-content", height: "fit-content", marginLeft: "5%", marginTop: "5%"}}>
+                 style={{width: "fit-content", height: "fit-content", marginLeft: "5%"}}>
                 <div className="header">
                     <label className="title">Add Your Boxes</label>
                 </div>
