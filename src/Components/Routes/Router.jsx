@@ -2,7 +2,7 @@ import React from 'react';
 import {Routes, Route} from 'react-router-dom';
 import {Home} from "../Home/Home";
 import {Entries} from "../Entries/Entries";
-import UserBoxes from "../SmartBox/UserBoxes";
+import UserBoxes from "../UserBoxesAndAccesses/UserBoxes";
 import {Map} from "../Map/Map";
 import {PackageRoutes} from "../Admin/PackageRoutes";
 import Orders from "../UserOrders/Orders";
