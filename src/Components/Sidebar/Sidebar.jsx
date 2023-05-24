@@ -28,7 +28,7 @@ function Sidebar() {
     }, [])
 
     return (loggedIn ? <div className="wrapper">
-        <nav id="sidebar" style={{maxHeight:"none"}}>
+        <nav id="sidebar" style={{maxHeight: "none", position: "sticky", left: "0", top: "0", height: "100vh"}}>
             <div className="sidebar-header">
                 <h3>Direct4Me</h3>
             </div>
@@ -59,12 +59,12 @@ function Sidebar() {
 
             <ul className="list-unstyled CTAs">
                 {admin ? <li style={{listStyle: 'none'}}>
-                    <a href="/admin" className="download">
+                    <a href="/admin" className="admin">
                         ADMIN
                     </a>
                 </li> : <></>}
                 <li style={{listStyle: 'none'}}>
-                    <a href="/" onClick={() => logOut()} className="download">
+                    <a href="/" onClick={() => logOut()} className="logout" style={{color:"#DF2E38"}}>
                         LOG OUT
                     </a>
                 </li>
