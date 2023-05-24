@@ -24,8 +24,8 @@ export function AccessActions(props) {
             }).then(r => {
                 console.log(r);
             })
-            props.onAccessChange();
             clearFields();
+            props.handlePageUpdate();
         }).catch((err) => {
             console.log("No user with that Username")
         })
@@ -48,6 +48,7 @@ export function AccessActions(props) {
                 console.log(r);
             })
             clearFields()
+            props.handlePageUpdate();
             console.log(res)
         }).catch((err) => {
             console.log("No user with that Username")
@@ -66,8 +67,9 @@ export function AccessActions(props) {
                 LoggerId: Cookies.get('id').toString(),
                 EntryType: "boxRemovedFromOwner"
             }).then(res => {
-                console.log(res);
                 clearFields()
+                props.handlePageUpdate();
+                console.log(res);
             })
         }).catch(error => console.error(error));
     }
