@@ -18,29 +18,20 @@ function OrdersOnMap(props) {
             });
     }, []);
 
-    // {order.Items[i].join(', ')}
 
-    return (
-        <>
-            {orders.length !== 0 ? (
-                <div className="box">
+    return (<>
+            {orders.length !== 0 ? (<div className="box">
                     <h2>Your Orders In Route</h2>
-                    <div className="user">
-                        {orders.map((order, i) => (
-                            order.Items.length !== 0 && order.Status === "In Route" ?
+                    <div className="user-orders">
+                        {orders.map((order, i) => (order.Items.length !== 0 && order.Status === "In Route" ? (
                                 <div key={i}>
                                     <p style={{color: '#DF2E38'}}>Order for box: {order.BoxID}</p>
-                                    <span className="username">Website from order: {order.PageUrl}</span>
-                                </div>
-                                : <></>
-                        ))}
+                                    <span className="order-website">Website from order: {order.PageUrl}</span>
+                                </div>) : null))}
                     </div>
-                </div>
-            ) : (
-                <div className="box">ni neke</div>
-            )}
-        </>
-    );
+                </div>) : (<div className="box" style={{color: '#DF2E38'}}>You have no orders in route</div>)}
+        </>);
+
 }
 
 export default OrdersOnMap;

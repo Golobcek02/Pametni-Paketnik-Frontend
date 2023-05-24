@@ -1,7 +1,7 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import { useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import {useState} from "react";
+import {useNavigate} from 'react-router-dom';
 
 export function AddBoxToMap(props) {
     const [smartBoxID, setSmartBoxID] = useState('');
@@ -27,7 +27,9 @@ export function AddBoxToMap(props) {
                             TimeAccessed: Date.now(),
                             LoggerId: Cookies.get('id').toString(),
                             EntryType: "boxAdded"
-                        }).then(r => { console.log(r); })
+                        }).then(r => {
+                            console.log(r);
+                        })
                         window.location.reload();
                         console.log(res);
                     }
@@ -39,15 +41,34 @@ export function AddBoxToMap(props) {
         })
     }
 
+    function addOwner() {
+        axios.post("http://localhost:5551/ClaimBox", {
+            BoxID: parseInt(smartBoxID),
+            UserID: Cookies.get('id')
+        }).then((res) => {
+            console.log(res)
+        }).catch(err => {
+            console.log(err)
+        })
+    }
+
     return (
         <div>
-            <input type='text' id="address_id" onChange={(e) => {
-                setAddress(e.target.value)
-            }} placeholder="Enter your address"></input>
-            <input type='text' id="smartbox_id" onChange={(e) => {
-                setSmartBoxID(e.target.value)
-            }} placeholder="Enter Smartbox ID"></input>
-            <button type='submit' onClick={() => submitAddBox()}>Add Smartbox to User</button>
+            <div>
+                <input type='text' id="address_id" onChange={(e) => {
+                    setAddress(e.target.value)
+                }} placeholder="Enter your address"></input>
+                <input type='text' id="smartbox_id" onChange={(e) => {
+                    setSmartBoxID(e.target.value)
+                }} placeholder="Enter Smartbox ID"></input>
+                <button type='submit' onClick={() => submitAddBox()}>Add Smartbox to User</button>
+            </div>
+            {/*<div>*/}
+            {/*    <input type='text' id="address_id" onChange={(e) => {*/}
+            {/*        setSmartBoxID(e.target.value)*/}
+            {/*    }} placeholder="Box ID"></input>*/}
+            {/*    <button type='submit' onClick={() => addOwner()}>Claim box</button>*/}
+            {/*</div>*/}
         </div>
     );
 }
