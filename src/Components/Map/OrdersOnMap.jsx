@@ -5,6 +5,7 @@ import Cookies from 'js-cookie';
 
 function OrdersOnMap(props) {
     const [orders, setOrders] = useState([]);
+    const [pendingOrders, setPendingOrders] = useState(false)
 
     useEffect(() => {
         axios
@@ -12,6 +13,12 @@ function OrdersOnMap(props) {
             .then((res) => {
                 console.log('res', res.data);
                 setOrders(res.data);
+                for (const order of res.data) {
+                    if (order.Status === 'In Route') {
+                        setPendingOrders(true)
+                        break;
+                    }
+                }
             })
             .catch((err) => {
                 console.log(err);
@@ -20,7 +27,7 @@ function OrdersOnMap(props) {
 
 
     return (<>
-        {orders.length !== 0 ? (<div className="box">
+        {pendingOrders ? (<div className="box">
             <h2>Your Orders In Route</h2>
             <div className="user-orders">
                 {orders.map((order, i) => (order.Items.length !== 0 && order.Status === "In Route" ? (<div key={i}>
@@ -28,7 +35,7 @@ function OrdersOnMap(props) {
                     <span className="order-website">Website from order: {order.PageUrl}</span>
                 </div>) : null))}
             </div>
-        </div>) : (<div className="box" style={{color: '#DF2E38'}}>You have no orders in route</div>)}
+        </div>) : (<div className="box" style={{color: '#DF2E38'}}>YOU HAVE NO ORDERS IN ROUTE</div>)}
     </>);
 
 }
