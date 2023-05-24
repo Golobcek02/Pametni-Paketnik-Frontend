@@ -4,6 +4,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import {AccessActions} from "./AccessActions";
 import {UserBoxesAndAccesses} from "./UserBoxesAndAccesses";
+import {AddBox} from "./AddBox";
 
 function UserBoxes(props) {
 
@@ -21,10 +22,13 @@ function UserBoxes(props) {
     }, [])
 
     return (<>
-        {userBoxes.length !== 0 ? <div className="container">
+        {userBoxes.length > 0 ? <div className="container-boxes">
+            <AddBox/>
             <AccessActions userBoxes={userBoxes}/>
             <UserBoxesAndAccesses userBoxes={userBoxes} usernames={usernames}/>
-        </div> : <></>}
+        </div> : <div className="container-boxes">
+            <AddBox/>
+        </div>}
 
     </>)
 }

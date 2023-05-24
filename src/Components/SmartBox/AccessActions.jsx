@@ -102,10 +102,10 @@ export function AccessActions(props) {
             <button className="sign-in_btn" onClick={() => addUserToAccessList()}>
                 <span>Add Access</span>
             </button>
-            <button className="sign-in_btn" onClick={() => revokeUserAccess()}>
+            <button className="revoke_btn" onClick={() => revokeUserAccess()}>
                 <span>Revoke Access</span>
             </button>
-            <button className="sign-in_btn" onClick={() => removeOwner()}>
+            <button className="revoke_btn" onClick={() => removeOwner()}>
                 <span>Remove Ownership</span>
             </button>
         </div>

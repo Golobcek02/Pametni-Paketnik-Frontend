@@ -48,7 +48,15 @@ function Orders() {
                         </div>
                     </div>
                 </div>
-            </div>))) : (<div className="entries-container">YOU HAVE NO ENTRIES</div>)}
+            </div>))) : <div className="card">
+                <div className="card-top-part">
+                    <div className="left-part">
+                        <div className="user-name">
+                            <p className="name" style={{color:"#DF2E38"}}>YOU HAVE NO ORDERS</p>
+                        </div>
+                    </div>
+                </div>
+            </div>}
         </div>
     )
 }
