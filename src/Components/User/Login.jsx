@@ -11,8 +11,7 @@ export function Login() {
 
     function SubmitLogIn() {
         axios.post("http://localhost:5551/login", {
-            Username: username,
-            Password: password
+            Username: username, Password: password
         }).then(res => {
             if (res.status == 200) {
                 console.log(res.data);
@@ -20,14 +19,13 @@ export function Login() {
                 expiryDate.setDate(expiryDate.getDate() + 7);
                 Cookies.set('id', res.data.ID, {expires: expiryDate});
                 Cookies.set('username', res.data.Username, {expires: expiryDate});
-                navigate("/entries");
+                navigate("/");
                 window.location.reload();
             }
         })
     }
 
-    return (
-        <>
+    return (<>
             <div className="form form-login">
                 <fieldset>
                     <legend>Please, enter your email and password for login.</legend>
@@ -44,8 +42,7 @@ export function Login() {
                         }}/>
                     </div>
                 </fieldset>
-                <button type="submit" className="btn-login" onClick={()=>SubmitLogIn()}>Login</button>
+                <button type="submit" className="btn-login" onClick={() => SubmitLogIn()}>Login</button>
             </div>
-        </>
-    )
+        </>)
 }

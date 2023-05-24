@@ -6,7 +6,7 @@ export function Home() {
 
     return (
         <>
-            <div className="container">
+            <div className="container-home">
                 <div className="form-container">
                     <Form/>
                     <div className="gradient" style={{position: "absolute", left: "15%", bottom: "20%"}}/>
