@@ -37,6 +37,6 @@ export function BoxLocation() {
                 </p>
             </Popup>
         </CircleMarker>))}
-        <OrderRoutes map={map} boxes={userBoxes}/>
+        <OrderRoutes boxes={userBoxes}/>
     </>);
 }
