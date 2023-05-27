@@ -21,23 +21,23 @@ export function EntryIcon(props) {
 
     useEffect(() => {
         if (props.entryType === "boxOpening") {
-            setIcon(<KeyIcon style={{fontSize: 50, color: '#4F759B'}}/>)
+            setIcon(<KeyIcon style={{fontSize: 50, color: '#2B3467'}}/>)
         } else if (props.entryType === "orderAdded") {
-            setIcon(<LocalMallIcon style={{fontSize: 50, color: '#938BA1'}}/>)
+            setIcon(<LocalMallIcon style={{fontSize: 50, color: '#579BB1'}}/>)
         } else if (props.entryType === "orderCompleted") {
-            setIcon(<WhereToVoteIcon style={{fontSize: 50, color: '#B2E4DB'}}/>)
+            setIcon(<WhereToVoteIcon style={{fontSize: 50, color: '#579BB1'}}/>)
         } else if (props.entryType === "oneStopCloser") {
-            setIcon(<LocalShippingIcon style={{fontSize: 50, color: '#7A89C2'}}/>)
+            setIcon(<LocalShippingIcon style={{fontSize: 50, color: '#579BB1'}}/>)
         } else if (props.entryType === "boxRemovedFromOwner") {
-            setIcon(<GppBadIcon style={{fontSize: 50, color: '#D64045'}}/>)
+            setIcon(<GppBadIcon style={{fontSize: 50, color: '#EB455F'}}/>)
         } else if (props.entryType === "accessRevoked") {
-            setIcon(<GppMaybeIcon style={{fontSize: 50, color: '#8E94F2'}}/>)
+            setIcon(<GppMaybeIcon style={{fontSize: 50, color: '#EB455F'}}/>)
         } else if (props.entryType === "accessAdded") {
-            setIcon(<GppGoodIcon style={{fontSize: 50, color: '#336699'}}/>)
+            setIcon(<GppGoodIcon style={{fontSize: 50, color: '#EB455F'}}/>)
         } else if (props.entryType === "boxAdded") {
-            setIcon(<InventoryIcon style={{fontSize: 50, color: '#1768AC'}}/>)
+            setIcon(<InventoryIcon style={{fontSize: 50, color: '#EB455F'}}/>)
         }
-    }, []);
+    }, [props]);
 
 
     return (<>

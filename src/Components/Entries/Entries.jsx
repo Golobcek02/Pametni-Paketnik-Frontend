@@ -4,6 +4,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import {EntryIcon} from "./EntryIcon";
 import {EntryName} from "./EntryName";
+import {EntryType} from "./EntryType";
 
 export function Entries() {
     const [entries, setEntries] = useState([]);
@@ -32,7 +33,7 @@ export function Entries() {
                     <div className="user-name">
                         <p className="name">Box: {entry.BoxId}</p>
                         <p className="role">
-                            {entry.EntryType === "boxOpening" ? "Opening" : entry.EntryType === "boxDeleted" ? "Deleted" : "misc"}
+                            <EntryType entryType={entry.EntryType}/>
                         </p>
                     </div>
                     <div className="user-position">
