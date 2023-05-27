@@ -1,0 +1,83 @@
+.admin-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+}
+
+.admin-item {
+    flex: 0 0 300px;
+    background-color: #f1f1f1;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.admin-item h2 {
+    margin-top: 0;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+.admin-item p {
+    margin-bottom: 0;
+    color: #666;
+}
+
+.admin-item button {
+    margin-top: 10px;
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.admin-item button:hover {
+    background-color: #0056b3;
+}
+
+@media screen and (max-width: 768px) {
+    .admin-item {
+        flex-basis: 100%;
+    }
+}
+
+
+.admin-item {
+    margin-bottom: 20px;
+}
+
+.admin-item h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.admin-item input,
+.admin-item select,
+.admin-item button {
+    margin-bottom: 10px;
+}
+
+.admin-item button {
+    padding: 8px 12px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.admin-item button:hover {
+    background-color: #45a049;
+}
+
+.admin-item input[type="text"],
+.admin-item input[type="number"],
+.admin-item select {
+    padding: 8px;
+    width: 100%;
+    box-sizing: border-box;
+}

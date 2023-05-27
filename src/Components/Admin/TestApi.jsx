@@ -57,24 +57,20 @@ function Entries() {
         setCustomId(538)
     }
 
-    return (<>
-        <input
-            type="number"
-            placeholder="BoxId"
-            value={customId}
-            onChange={(e) => {
-                setCustomId(parseInt(e.target.value))
-                e.target.value = ""
-            }}
-        />
-        <button onClick={() => postCustomId()}>
-            Custom id
-        </button>
-        <button onClick={() => {
-            tryApi();
-        }}>Post to api
-        </button>
-    </>);
+    return (
+        <div className="admin-item">
+            <h2>Test API</h2>
+            <input
+                type="number"
+                placeholder="Box ID"
+                onChange={(e) => {
+                    // Handle custom ID input change
+                }}
+            />
+            <button onClick={postCustomId}>Custom ID</button>
+            <button onClick={tryApi}>Post to API</button>
+        </div>
+    );
 }
 
 export default Entries;

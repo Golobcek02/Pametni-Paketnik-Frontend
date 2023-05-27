@@ -1,7 +1,9 @@
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
+
 const centralStations = require('../../centralStations.json');
+
 export function PackageRoutes() {
     const [nonParsedRoutes, setNonParsedRoutes] = useState("");
     const [boxId, setBoxId] = useState(0);
@@ -46,7 +48,7 @@ export function PackageRoutes() {
             const finalString = `${stationString}|${boxIdsString}`;
             console.log(finalString);
 
-            axios.post('http://localhost:5551/addPackageRoute', { route: finalString })
+            axios.post('http://localhost:5551/addPackageRoute', {route: finalString})
                 .then(response => {
                     console.log(response.data); // Successfully saved
                     // After saving the route, update the status of orders
@@ -102,7 +104,7 @@ export function PackageRoutes() {
     function updateOrderStatus() {
         const boxIdsArray = boxIds.split(',');
         Promise.all(boxIdsArray.map(id => {
-            const body = { boxId: id, status: 'In Route' };
+            const body = {boxId: id, status: 'In Route'};
             return axios.post(`http://localhost:5551/updateOrderStatus`, body);
         })).then(responses => {
             console.log(responses);
@@ -131,22 +133,16 @@ export function PackageRoutes() {
     }, [])
 
     return (
-        <>
+        <div className="admin-item">
+            <h2>Package Routes</h2>
             <div>
-                <input
-                    type="text"
-                    id="username"
-                    onChange={(e) => {
-                        setRouteIdInput(e.target.value);
-                    }}
-                    placeholder="Enter Route ID"
-                />
+                <input type="text" id="username" placeholder="Enter Route ID"/>
                 <button type="submit" onClick={() => popFirstStop()}>
                     Pop First Stop
                 </button>
             </div>
             <div>
-                <select onChange={e => setSelectedStation(e.target.value)}>
+                <select onChange={(e) => setSelectedStation(e.target.value)}>
                     <option value="">-- Select a Station --</option>
                     {
                         centralStations.map(station => (
@@ -156,13 +152,13 @@ export function PackageRoutes() {
                 </select>
                 <input
                     type="text"
-                    onChange={e => setBoxIds(e.target.value)}
+                    onChange={(e) => setBoxIds(e.target.value)}
                     placeholder="Enter Box IDs divided by comma"
                 />
-                <button type="submit" onClick={() => handleStationAndBoxIdsSubmit()}>
+                <button type="submit" onClick={handleStationAndBoxIdsSubmit}>
                     Submit
                 </button>
             </div>
-        </>
+        </div>
     );
 }
