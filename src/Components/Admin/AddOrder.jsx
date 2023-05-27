@@ -1,4 +1,4 @@
-import { useState } from "react";
+import {useState} from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
 
@@ -29,7 +29,9 @@ export function AddOrder() {
                     TimeAccessed: Date.now(),
                     LoggerId: Cookies.get('id').toString(),
                     EntryType: "orderAdded"
-                }).then(res => { console.log(res); })
+                }).then(res => {
+                    console.log(res);
+                })
                 console.log(res);
                 setBoxId(0);
                 setPageUrl("");
@@ -42,8 +44,8 @@ export function AddOrder() {
     }
 
     return (
-        <div>
-            <h1>Add Order</h1>
+        <div className="admin-item">
+            <h2>Add Order</h2>
             <label htmlFor="boxId">Box ID:</label>
             <input
                 type="text"

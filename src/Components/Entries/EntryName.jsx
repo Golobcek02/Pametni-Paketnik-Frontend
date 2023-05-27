@@ -1,12 +1,4 @@
 import {useEffect, useState} from "react";
-import KeyIcon from "@mui/icons-material/Key";
-import LocalMallIcon from "@mui/icons-material/LocalMall";
-import WhereToVoteIcon from "@mui/icons-material/WhereToVote";
-import LocalShippingIcon from "@mui/icons-material/LocalShipping";
-import GppBadIcon from "@mui/icons-material/GppBad";
-import GppMaybeIcon from "@mui/icons-material/GppMaybe";
-import GppGoodIcon from "@mui/icons-material/GppGood";
-import InventoryIcon from "@mui/icons-material/Inventory";
 
 export function EntryName(props) {
 
@@ -30,7 +22,7 @@ export function EntryName(props) {
         } else if (props.entryType === "boxAdded") {
             setEntry("Added box to account")
         }
-    }, [])
+    }, [props])
 
     return (<>
         <p className="position">{entry}</p>

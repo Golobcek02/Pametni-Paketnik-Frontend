@@ -53,22 +53,25 @@ export function AddBoxToMap(props) {
     }
 
     return (
-        <div>
+        <div className="admin-item">
+            <h2>Add Box to Map</h2>
             <div>
-                <input type='text' id="address_id" onChange={(e) => {
-                    setAddress(e.target.value)
-                }} placeholder="Enter your address"></input>
-                <input type='text' id="smartbox_id" onChange={(e) => {
-                    setSmartBoxID(e.target.value)
-                }} placeholder="Enter Smartbox ID"></input>
-                <button type='submit' onClick={() => submitAddBox()}>Add Smartbox to User</button>
+                <input
+                    type="text"
+                    id="address_id"
+                    onChange={(e) => setAddress(e.target.value)}
+                    placeholder="Enter your address"
+                />
+                <input
+                    type="text"
+                    id="smartbox_id"
+                    onChange={(e) => setSmartBoxID(e.target.value)}
+                    placeholder="Enter Smartbox ID"
+                />
+                <button type="submit" onClick={submitAddBox}>
+                    Add Smartbox to User
+                </button>
             </div>
-            {/*<div>*/}
-            {/*    <input type='text' id="address_id" onChange={(e) => {*/}
-            {/*        setSmartBoxID(e.target.value)*/}
-            {/*    }} placeholder="Box ID"></input>*/}
-            {/*    <button type='submit' onClick={() => addOwner()}>Claim box</button>*/}
-            {/*</div>*/}
         </div>
     );
 }

@@ -3,6 +3,7 @@ import Cookies from "js-cookie";
 import axios from "axios";
 // import './orders.css'
 import '../Entries/entries.css'
+import {OrderIcon} from "./OrderIcon";
 
 function Orders() {
 
@@ -41,10 +42,11 @@ function Orders() {
                     </div>
                     <div className="right-part">
                         <div className="user-photo">
-                            {order.Status === "Completed" ? (<img src="/green.jpg" className="photo"
-                                                                  alt="Green"/>) : order.Status === "Pending" ? (
-                                <img src="/red.png" className="photo" alt="Red"/>) : (
-                                <img src="/orange.jpg" className="photo" alt="Orange"/>)}
+                            <OrderIcon orderSatus={order.Status}/>
+                            {/*{order.Status === "Completed" ? (<img src="/green.jpg" className="photo"*/}
+                            {/*                                      alt="Green"/>) : order.Status === "Pending" ? (*/}
+                            {/*    <img src="/red.png" className="photo" alt="Red"/>) : (*/}
+                            {/*    <img src="/orange.jpg" className="photo" alt="Orange"/>)}*/}
                         </div>
                     </div>
                 </div>
