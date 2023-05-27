@@ -23,8 +23,8 @@ function Entries() {
     }, [newEntry, shouldRerender])
 
     function tryApi() {
-        console.log("try api", customId)
-        data.boxId = customId;
+        // console.log("try api", customId)
+        // data.boxId = customId;
         axios.post("https://api-d4me-stage.direct4.me/sandbox/v1/Access/openbox", data, {
             headers: {
                 'Content-Type': 'application/json', 'Authorization': `Bearer 9ea96945-3a37-4638-a5d4-22e89fbc998f`,
@@ -33,7 +33,7 @@ function Entries() {
             console.log(response.data);
             const base64string = response.data.data;
             const audio = new Audio("data:audio/mp3;base64," + base64string);
-            // audio.play();
+            audio.play();
 
             axios.post(`http://localhost:5551/newEntry`, {
                 DeliveryId: data.deliveryId + 6,
