@@ -2,6 +2,8 @@ import './entries.css';
 import {useEffect, useState} from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
+import {EntryIcon} from "./EntryIcon";
+import {EntryName} from "./EntryName";
 
 export function Entries() {
     const [entries, setEntries] = useState([]);
@@ -34,7 +36,8 @@ export function Entries() {
                         </p>
                     </div>
                     <div className="user-position">
-                        <p className="position">{entry.EntryType}</p>
+                        <EntryName entryType={entry.EntryType}/>
+                        {/*<p className="position">{entry.EntryType}</p>*/}
                         <p className="position">
                             {new Date(entry.TimeAccessed).toLocaleDateString()}{" "}
                             {new Date(entry.TimeAccessed).toLocaleTimeString()}
@@ -42,12 +45,7 @@ export function Entries() {
                     </div>
                 </div>
                 <div className="right-part">
-                    <div className="user-photo">
-                        {entry.EntryType === "boxOpening" ? (<img src="/green.jpg" className="photo"
-                                                                  alt="Green"/>) : entry.EntryType === "boxDeleted" ? (
-                            <img src="/red.png" className="photo" alt="Red"/>) : (
-                            <img src="/orange.jpg" className="photo" alt="Orange"/>)}
-                    </div>
+                    <EntryIcon entryType={entry.EntryType}/>
                 </div>
             </div>
             <div className="card-bottom-part">
