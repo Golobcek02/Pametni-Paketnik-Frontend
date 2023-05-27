@@ -1,14 +1,13 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
-import {useMap} from "react-leaflet";
-import L, {latLng} from "leaflet"
+import { useMap } from "react-leaflet";
+import L, { latLng } from "leaflet"
 
 export function OrderRoutes(props) {
 
     const [stops, setStops] = useState([])
-    // const map = useMap()
-
+    const map = useMap()
 
     useEffect(() => {
         console.log(props)
@@ -56,19 +55,36 @@ export function OrderRoutes(props) {
                             const LatLon = coords.replace(/ /g, "").split(",");
                             const userBoxOnOrder = props.boxes.filter(value => value.Latitude.toFixed(8) === parseFloat(LatLon[0]).toFixed(8) && value.Longitude.toFixed(8) === parseFloat(LatLon[1]).toFixed(8));
 
+                            console.log(userBoxOnOrder)
+                            map.eachLayer(function (layer) {
+                                if (layer instanceof L.CircleMarker) {
+                                    var circleMarker = layer;
+                                    //console.log('CircleMarker found at ' + circleMarker.getLatLng());
+                                    if (circleMarker.getLatLng().lat === parseFloat(LatLon[0]) && circleMarker.getLatLng().lng === parseFloat(LatLon[1])) {
+                                        map.removeLayer(circleMarker);
+                                    }
+
+                                    if (userBoxOnOrder.length > 0) {
+                                        if ((circleMarker.getLatLng().lat === userBoxOnOrder[0].Latitude && circleMarker.getLatLng().lng === userBoxOnOrder[0].Longitude)) {
+                                            map.removeLayer(circleMarker);
+                                        }
+                                    }
+                                }
+                            });
+
                             if (userBoxOnOrder.length > 0) {
-                                L.marker([userBoxOnOrder[0].Latitude + 0.00005, userBoxOnOrder[0].Longitude + 0.00005], {icon: yourBoxStop}).addTo(props.map);
+                                L.marker([userBoxOnOrder[0].Latitude + 0.00005, userBoxOnOrder[0].Longitude + 0.00005], { icon: yourBoxStop }).addTo(map);
                             } else if (index === 0) {
-                                L.marker([parseFloat(LatLon[0]), parseFloat(LatLon[1])], {icon: currentStopIcon}).addTo(props.map);
+                                L.marker([parseFloat(LatLon[0]), parseFloat(LatLon[1])], { icon: currentStopIcon }).addTo(map);
                             } else {
-                                L.marker([parseFloat(LatLon[0]), parseFloat(LatLon[1])], {icon: intermediateStopIcon}).addTo(props.map);
+                                L.marker([parseFloat(LatLon[0]), parseFloat(LatLon[1])], { icon: intermediateStopIcon }).addTo(map);
                             }
                         });
 
                         const polyline = L.polyline(routeCoordinates, {
                             'color': getRandomColor(), weight: 6
-                        }).addTo(props.map);
-                        props.map.fitBounds(polyline.getBounds());
+                        }).addTo(map);
+                        map.fitBounds(polyline.getBounds());
 
                         const hours = Math.floor((res.data.results[0].time + 1200) / 3600);
                         res.data.results[0].time %= 3600;
@@ -77,8 +93,8 @@ export function OrderRoutes(props) {
 
                         polyline.bindPopup("Estimated time of delivery: " + hours + "h " + minutes + "min " + remainingSeconds + "sec<br>Total route distance: " + res.data.results[0].distance / 1000 + "km");
                     }).catch(e => {
-                    console.log(e)
-                })
+                        console.log(e)
+                    })
             });
         }
     }, [stops]);
