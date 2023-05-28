@@ -22,6 +22,8 @@ export function Login(props) {
                 navigate("/");
                 window.location.reload();
             }
+        }).catch((err)=>{
+            console.log(err)
         })
     }
 

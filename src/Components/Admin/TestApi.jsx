@@ -19,6 +19,8 @@ function TestApi(props) {
             console.log(res.data)
             setEntries(res.data);
             setNewEntry(false)
+        }).catch((err) => {
+            console.log(err)
         });
     }, [newEntry, shouldRerender])
 

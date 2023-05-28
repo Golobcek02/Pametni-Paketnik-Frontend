@@ -30,6 +30,8 @@ export function Register(props) {
             }).catch(err => {
                 alert("Username already exists")
             })
+        } else {
+            alert("Passwords do not match")
         }
     }
 
