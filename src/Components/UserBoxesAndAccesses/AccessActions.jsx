@@ -8,12 +8,12 @@ export function AccessActions(props) {
     const [boxId, setBoxId] = useState('');
     const [username, setUsername] = useState('');
 
-    function addUserToAccessList() {
-        axios.post("http://localhost:5551/addAccessToUser", {
+    function addUserToAccessList(props) {
+        axios.post(`${props.API_ENV}/addAccessToUser`, {
             UserID: Cookies.get('id'), AccessId: username, BoxId: parseInt(boxId)
         }).then((res) => {
             console.log(res)
-            axios.post(`http://localhost:5551/newEntry`, {
+            axios.post(`${props.API_ENV}/newEntry`, {
                 DeliveryId: 4,
                 BoxId: parseInt(boxId),
                 Latitude: 0,
@@ -33,10 +33,10 @@ export function AccessActions(props) {
 
 
     function revokeUserAccess() {
-        axios.post("http://localhost:5551/revokeAccessToUser", {
+        axios.post(`${props.API_ENV}/revokeAccessToUser`, {
             UserID: Cookies.get('id'), AccessId: username, BoxId: parseInt(boxId)
         }).then((res) => {
-            axios.post(`http://localhost:5551/newEntry`, {
+            axios.post(`${props.API_ENV}/newEntry`, {
                 DeliveryId: 4,
                 BoxId: parseInt(boxId),
                 Latitude: 0,
@@ -56,9 +56,9 @@ export function AccessActions(props) {
     }
 
     function removeOwner() {
-        axios.put(`http://localhost:5551/clearBox/${boxId}`).then(res => {
+        axios.put(`${props.API_ENV}/clearBox/${boxId}`).then(res => {
             console.log(res)
-            axios.post(`http://localhost:5551/newEntry`, {
+            axios.post(`${props.API_ENV}/newEntry`, {
                 DeliveryId: 2,
                 BoxId: parseInt(boxId),
                 Latitude: 0,

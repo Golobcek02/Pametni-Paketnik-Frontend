@@ -6,21 +6,23 @@ import {EntryIcon} from "./EntryIcon";
 import {EntryName} from "./EntryName";
 import {EntryType} from "./EntryType";
 
-export function Entries() {
+export function Entries(props) {
     const [entries, setEntries] = useState([]);
     const [newEntry, setNewEntry] = useState(false);
 
     useEffect(() => {
-        axios.get(`http://localhost:5551/getEntries/${Cookies.get('id')}`).then(res => {
+        axios.get(`${props.API_ENV}/getEntries/${Cookies.get('id')}`).then(res => {
             console.log(res.data)
             if (res.data !== null) {
                 setEntries(res.data.reverse());
             }
+        }).catch(err => {
+            console.log(err)
         });
     }, [newEntry]);
 
     function deleteEntry(id) {
-        axios.delete(`http://localhost:5551/removeEntry/${id}`).then(res => {
+        axios.delete(`${props.API_ENV}/removeEntry/${id}`).then(res => {
             console.log(res)
             setNewEntry(!newEntry);
         }).catch(error => console.error(error));

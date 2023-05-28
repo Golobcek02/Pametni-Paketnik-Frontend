@@ -6,12 +6,12 @@ import {OrderRoutes} from "./OrderRoutes";
 
 const centralStations = require('../../centralStations.json');
 
-export function BoxLocation() {
+export function BoxLocation(props) {
     const [userBoxes, setUserBoxes] = useState([]);
     const map = useMap();
 
     useEffect(() => {
-        axios.get(`http://localhost:5551/getUserBoxes/${Cookies.get('id')}`).then(res => {
+        axios.get(`${props.API_ENV}/getUserBoxes/${Cookies.get('id')}`).then(res => {
             console.log(res);
             setUserBoxes(res.data.allBoxes);
         }).catch(error => console.error(error));
@@ -37,6 +37,6 @@ export function BoxLocation() {
                 </p>
             </Popup>
         </CircleMarker>))}
-        <OrderRoutes boxes={userBoxes}/>
+        <OrderRoutes boxes={userBoxes} API_ENV={props.API_ENV}/>
     </>);
 }

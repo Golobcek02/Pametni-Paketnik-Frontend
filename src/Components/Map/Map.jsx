@@ -5,7 +5,7 @@ import {BoxLocation} from "./BoxLocation";
 import './map.css'
 import OrdersOnMap from "./OrdersOnMap";
 
-export function Map() {
+export function Map(props) {
     const [map, setMap] = useState(null);
 
     const displayMap = useMemo(() => (<MapContainer
@@ -19,13 +19,13 @@ export function Map() {
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <BoxLocation/>
+        <BoxLocation API_ENV={props.API_ENV}/>
     </MapContainer>), []);
 
     return (<div className="container-map">
         <div style={{height: "calc(80vh - 160px)", width: "65%", marginLeft: "2.5%"}}>
             {displayMap}
         </div>
-        <OrdersOnMap/>
+        <OrdersOnMap API_ENV={props.API_ENV}/>
     </div>);
 }

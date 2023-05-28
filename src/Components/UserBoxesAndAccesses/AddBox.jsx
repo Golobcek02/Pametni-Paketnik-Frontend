@@ -7,7 +7,7 @@ export function AddBox(props) {
     const [boxId, setBoxId] = useState("")
 
     function addBox() {
-        axios.post("http://localhost:5551/ClaimBox", {
+        axios.post(`${props.API_ENV}/ClaimBox`, {
             BoxID: parseInt(boxId), UserID: Cookies.get('id')
         }).then((res) => {
             clearFields();

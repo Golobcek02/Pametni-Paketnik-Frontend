@@ -9,7 +9,7 @@ function OrdersOnMap(props) {
 
     useEffect(() => {
         axios
-            .get(`http://localhost:5551/getUserOrders/${Cookies.get('id')}`)
+            .get(`${props.API_ENV}/getUserOrders/${Cookies.get('id')}`)
             .then((res) => {
                 console.log('res', res.data);
                 setOrders(res.data);

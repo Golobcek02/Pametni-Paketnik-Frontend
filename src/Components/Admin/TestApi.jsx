@@ -6,7 +6,7 @@ import Cookies from 'js-cookie';
 const data = require('../../SmartBoxRequest.json');
 
 
-function Entries() {
+function TestApi(props) {
 
     const [entries, setEntries] = useState([]);
     const [newEntry, setNewEntry] = useState(false)
@@ -15,7 +15,7 @@ function Entries() {
     // const ourBoxId= 538
 
     useEffect(() => {
-        axios.get(`http://localhost:5551/getEntries/${Cookies.get('id')}`).then(res => {
+        axios.get(`${props.API_ENV}/getEntries/${Cookies.get('id')}`).then(res => {
             console.log(res.data)
             setEntries(res.data);
             setNewEntry(false)
@@ -33,7 +33,7 @@ function Entries() {
             const audio = new Audio("data:audio/mp3;base64," + base64string);
             audio.play();
 
-            axios.post(`http://localhost:5551/newEntry`, {
+            axios.post(`${props.API_ENV}/newEntry`, {
                 DeliveryId: data.deliveryId + 6,
                 BoxId: data.boxId,
                 Latitude: 64,
@@ -71,4 +71,4 @@ function Entries() {
     );
 }
 
-export default Entries;
+export default TestApi;

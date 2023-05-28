@@ -2,7 +2,7 @@ import {useState} from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
 
-export function AddOrder() {
+export function AddOrder(props) {
     const [boxId, setBoxId] = useState(0);
     const [pageUrl, setPageUrl] = useState("");
     const [deliveryTime, setDeliveryTime] = useState("");
@@ -19,9 +19,9 @@ export function AddOrder() {
         };
 
         axios
-            .post("http://localhost:5551/addOrder", order)
+            .post(`${props.API_ENV}/addOrder`, order)
             .then((res) => {
-                axios.post(`http://localhost:5551/newEntry`, {
+                axios.post(`${props.API_ENV}/newEntry`, {
                     DeliveryId: 2,
                     BoxId: parseInt(boxId),
                     Latitude: 0,

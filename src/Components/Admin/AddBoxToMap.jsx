@@ -12,14 +12,14 @@ export function AddBoxToMap(props) {
         axios.get(`https://api.geoapify.com/v1/geocode/search?text=${address}&format=json&apiKey=635b84cbf55241c6b792a66cd02745a9`).then(responce => {
             console.log(responce.data.results);
             if (responce.data.results.length > 0) {
-                axios.post("http://localhost:5551/addUserBox", {
+                axios.post(`${props.API_ENV}/addUserBox`, {
                     UserID: Cookies.get("id"),
                     SmartBoxID: smartBoxID,
                     Lat: responce.data.results[0].lat,
                     Lon: responce.data.results[0].lon
                 }).then(res => {
                     if (res.status === 200) {
-                        axios.post(`http://localhost:5551/newEntry`, {
+                        axios.post(`${props.API_ENV}/newEntry`, {
                             DeliveryId: 1,
                             BoxId: parseInt(smartBoxID),
                             Latitude: responce.data.results[0].lat,
@@ -42,7 +42,7 @@ export function AddBoxToMap(props) {
     }
 
     function addOwner() {
-        axios.post("http://localhost:5551/ClaimBox", {
+        axios.post(`${props.API_ENV}/ClaimBox`, {
             BoxID: parseInt(smartBoxID),
             UserID: Cookies.get('id')
         }).then((res) => {

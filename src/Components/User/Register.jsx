@@ -3,7 +3,7 @@ import {useNavigate} from "react-router-dom";
 import axios from "axios";
 import Cookies from "js-cookie";
 
-export function Register() {
+export function Register(props) {
     const [name, setName] = useState('');
     const [surname, setSurname] = useState('');
     const [username, setUsername] = useState('');
@@ -15,7 +15,7 @@ export function Register() {
     function SubmitRegistration() {
         console.log(password, repeatPassword)
         if (password === repeatPassword) {
-            axios.post("http://localhost:5551/register", {
+            axios.post(`${props.API_ENV}/register`, {
                 Name: name,
                 Surname: surname,
                 Username: username,

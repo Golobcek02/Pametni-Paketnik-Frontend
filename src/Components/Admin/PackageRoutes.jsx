@@ -4,7 +4,7 @@ import Cookies from "js-cookie";
 
 const centralStations = require('../../centralStations.json');
 
-export function PackageRoutes() {
+export function PackageRoutes(props) {
     const [nonParsedRoutes, setNonParsedRoutes] = useState("");
     const [boxId, setBoxId] = useState(0);
     const [routeIdInput, setRouteIdInput] = useState("");
@@ -19,7 +19,7 @@ export function PackageRoutes() {
             const finalString = `${stationString}|${boxIdsString}`;
             console.log(finalString);
 
-            axios.post('http://localhost:5551/addPackageRoute', {route: finalString})
+            axios.post(`${props.API_ENV}/addPackageRoute`, {route: finalString})
                 .then(response => {
                     console.log(response.data); // Successfully saved
                     // After saving the route, update the status of orders
@@ -37,7 +37,7 @@ export function PackageRoutes() {
         const boxIdsArray = boxIds.split(',');
         Promise.all(boxIdsArray.map(id => {
             const body = {boxId: id, status: 'In Route'};
-            return axios.post(`http://localhost:5551/updateOrderStatus`, body);
+            return axios.post(`${props.API_ENV}/updateOrderStatus`, body);
         })).then(responses => {
             console.log(responses);
         }).catch(err => {
@@ -46,7 +46,7 @@ export function PackageRoutes() {
     }
 
     function popFirstStop() {
-        axios.post(`http://localhost:5551/popFirstStop/${routeIdInput}`).then((res) => {
+        axios.post(`${props.API_ENV}/popFirstStop/${routeIdInput}`).then((res) => {
             console.log(res);
         }).catch((err) => {
             console.log(err);
@@ -54,7 +54,7 @@ export function PackageRoutes() {
     }
 
     useEffect(() => {
-        axios.get(`http://localhost:5551/getUserOrders/${Cookies.get('id')}`, {
+        axios.get(`${props.API_ENV}/getUserOrders/${Cookies.get('id')}`, {
             BoxId: parseInt(boxId),
             Status: "Pending"
         }).then((res) => {

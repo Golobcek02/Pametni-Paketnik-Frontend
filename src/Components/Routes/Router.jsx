@@ -9,20 +9,24 @@ import Orders from "../UserOrders/Orders";
 import {Admin} from "../Admin/Admin";
 import Cookies from "js-cookie";
 
+let env = require('../../Env.json');
+
+const API_ENV = env.development
+
 function AppRouter() {
     return (
         Cookies.get('username') ?
             <Routes>
-                <Route exact path="/" element={<Entries/>}/>
-                <Route path="/userBoxes" element={<UserBoxes/>}/>
-                <Route path="/map" element={<Map/>}/>
-                <Route path="/packageRoutes" element={<PackageRoutes/>}/>
-                <Route path="/admin" element={<Admin/>}/>
-                <Route path="/userOrders" element={<Orders/>}/>
+                <Route exact path="/" element={<Entries API_ENV={API_ENV.API_URL}/>}/>
+                <Route path="/userBoxes" element={<UserBoxes API_ENV={API_ENV.API_URL}/>}/>
+                <Route path="/map" element={<Map API_ENV={API_ENV.API_URL}/>}/>
+                <Route path="/packageRoutes" element={<PackageRoutes API_ENV={API_ENV.API_URL}/>}/>
+                <Route path="/admin" element={<Admin API_ENV={API_ENV.API_URL}/>}/>
+                <Route path="/userOrders" element={<Orders API_ENV={API_ENV.API_URL}/>}/>
             </Routes>
             :
             <Routes>
-                <Route exact path="/" element={<Home/>}/>
+                <Route exact path="/" element={<Home API_ENV={API_ENV.API_URL}/>}/>
             </Routes>
     );
 }

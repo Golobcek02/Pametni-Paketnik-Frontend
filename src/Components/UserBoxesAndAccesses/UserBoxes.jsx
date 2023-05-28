@@ -12,7 +12,7 @@ function UserBoxes(props) {
     const [changed, setChanged] = useState(false);
 
     useEffect(() => {
-        axios.get(`http://localhost:5551/getUserBoxesAndAccesses/${Cookies.get('id')}`).then((res) => {
+        axios.get(`${props.API_ENV}/getUserBoxesAndAccesses/${Cookies.get('id')}`).then((res) => {
             setUserBoxes(res.data.allBoxes);
             setUsernames(res.data.usernames);
             console.log(res.data);
@@ -27,12 +27,12 @@ function UserBoxes(props) {
 
     return (<>
         {userBoxes.length > 0 ? (<div className="container-boxes">
-            <AddBox handlePageUpdate={handlePageUpdate}/>
-            <AccessActions userBoxes={userBoxes} handlePageUpdate={handlePageUpdate}/>
+            <AddBox handlePageUpdate={handlePageUpdate} API_ENV={props.API_ENV}/>
+            <AccessActions userBoxes={userBoxes} handlePageUpdate={handlePageUpdate} API_ENV={props.API_ENV}/>
             <UserBoxesAndAccesses userBoxes={userBoxes} usernames={usernames}
-                                  handlePageUpdate={handlePageUpdate}/>
+                                  handlePageUpdate={handlePageUpdate} API_ENV={props.API_ENV}/>
         </div>) : (<div className="container-boxes">
-            <AddBox handlePageUpdate={handlePageUpdate}/>
+            <AddBox handlePageUpdate={handlePageUpdate} API_ENV={props.API_ENV}/>
         </div>)}
     </>);
 }

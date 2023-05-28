@@ -4,24 +4,24 @@ import {AddBoxToMap} from "./AddBoxToMap";
 import TestApi from "./TestApi";
 import "./Admin.css";
 
-export function Admin() {
+export function Admin(props) {
     return (
         <div className="admin-container">
             <div className="admin-item">
                 <h2>Package Routes</h2>
-                <PackageRoutes/>
+                <PackageRoutes API_ENV={props.API_ENV}/>
             </div>
             <div className="admin-item">
                 <h2>Add Order</h2>
-                <AddOrder/>
+                <AddOrder API_ENV={props.API_ENV}/>
             </div>
             <div className="admin-item">
                 <h2>Add Box to Map</h2>
-                <AddBoxToMap/>
+                <AddBoxToMap API_ENV={props.API_ENV}/>
             </div>
             <div className="admin-item">
                 <h2>Test API</h2>
-                <TestApi/>
+                <TestApi API_ENV={props.API_ENV}/>
             </div>
         </div>
     );

@@ -5,25 +5,25 @@ import axios from "axios";
 import '../Entries/entries.css'
 import {OrderIcon} from "./OrderIcon";
 
-function Orders() {
+function Orders(props) {
 
     const [orders, setOrders] = useState([]);
 
     useEffect(() => {
         const userId = Cookies.get("id");
         axios
-            .get(`http://localhost:5551/getUserOrders/${userId}`)
+            .get(`${props.API_ENV}/getUserOrders/${userId}`)
             .then((res) => {
                 setOrders(res.data);
             })
             .catch((err) => {
                 console.error(err);
             });
-        fetch("https://ppbackend.azurewebsites.net/getUserBoxes/6467cb9d50ea550272e4c443")
-            .then(x => x.text())
-            .then(y => console.log("habotov shit", y)).catch(e => {
-            console.log(e)
-        });
+        // fetch("https://ppbackend.azurewebsites.net/getUserBoxes/6467cb9d50ea550272e4c443")
+        //     .then(x => x.text())
+        //     .then(y => console.log("habotov shit", y)).catch(e => {
+        //     console.log(e)
+        // });
     }, []);
 
 
@@ -54,7 +54,7 @@ function Orders() {
                 <div className="card-top-part">
                     <div className="left-part">
                         <div className="user-name">
-                            <p className="name" style={{color:"#DF2E38"}}>YOU HAVE NO ORDERS</p>
+                            <p className="name" style={{color: "#DF2E38"}}>YOU HAVE NO ORDERS</p>
                         </div>
                     </div>
                 </div>
