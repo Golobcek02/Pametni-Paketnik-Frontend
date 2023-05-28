@@ -8,7 +8,7 @@ export function AccessActions(props) {
     const [boxId, setBoxId] = useState('');
     const [username, setUsername] = useState('');
 
-    function addUserToAccessList(props) {
+    function addUserToAccessList() {
         axios.post(`${props.API_ENV}/addAccessToUser`, {
             UserID: Cookies.get('id'), AccessId: username, BoxId: parseInt(boxId)
         }).then((res) => {
@@ -22,6 +22,8 @@ export function AccessActions(props) {
                 LoggerId: Cookies.get('id').toString(),
                 EntryType: "accessAdded"
             }).then(r => {
+                clearFields();
+                props.handlePageUpdate();
                 console.log(r);
             })
             clearFields();
