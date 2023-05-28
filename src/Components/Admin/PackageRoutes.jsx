@@ -11,35 +11,6 @@ export function PackageRoutes() {
     const [selectedStation, setSelectedStation] = useState(null);
     const [boxIds, setBoxIds] = useState('');
 
-    /*function addRoutes() {
-        const parsedRoutes = nonParsedRoutes.split(",").map(route => route.trim());
-        let coordinates = []
-        parsedRoutes.map((location, i) => {
-            axios.post(`https://api.geoapify.com/v1/geocode/search?text=${location}&format=json&apiKey=635b84cbf55241c6b792a66cd02745a9`).then((res) => {
-                console.log(res)
-                coordinates[i] = `${res.data.results[0].lat}|${res.data.results[0].lat}`
-            }).catch(err=>{
-                alert('No such route could be established');
-            })
-        })
-        console.log("coordinates", coordinates)
-        if(coordinates.length>0){
-            axios.post("http://localhost:5551/addPackageRoute", { Stops: coordinates }).then((res) => {
-                axios.post(`http://localhost:5551/newEntry`, {
-                    DeliveryId:  2,
-                    BoxId: 0,
-                    Latitude: 0,
-                    Longitude: 0,
-                    TimeAccessed: Date.now(),
-                    LoggerId: Cookies.get('id').toString(),
-                    EntryType: "packageRouteAdded"
-                }).then(res => { console.log(res); })
-                console.log(res)
-            }).catch((err) => {
-                console.log(err)
-            })
-        }
-    }*/
     function handleStationAndBoxIdsSubmit() {
         const station = centralStations.find(station => station.place.name === selectedStation);
         if (station && boxIds) {
@@ -62,45 +33,6 @@ export function PackageRoutes() {
         }
     }
 
-    /*function updateOrder() {
-        const parsedRoutes = nonParsedRoutes.split(",").map((route) => route.trim());
-        const coordinates = Array(parsedRoutes.length);
-
-        Promise.all(
-            parsedRoutes.map((location, i) =>
-                axios
-                    .get(
-                        `https://api.geoapify.com/v1/geocode/search?text=${location}&format=json&apiKey=635b84cbf55241c6b792a66cd02745a9`
-                    )
-                    .then((res) => {
-                        console.log(res)
-                        coordinates[i] = `${res.data.results[0].lat},${res.data.results[0].lon}`;
-                    })
-            )
-        )
-            .then(() => {
-                console.log(coordinates);
-                console.log("JSON Body: ", coordinates);
-                axios.post(`http://localhost:5551/updateOrderRoute/${boxId}`, coordinates).then((res) => {
-                    axios.post(`http://localhost:5551/newEntry`, {
-                        DeliveryId: 2,
-                        BoxId: boxId,
-                        Latitude: 0,
-                        Longitude: 0,
-                        TimeAccessed: Date.now(),
-                        LoggerId: Cookies.get('id').toString(),
-                        EntryType: "orderRouteUpdated"
-                    }).then(res => { console.log(res); })
-                    console.log(res)
-                }).catch((err) => {
-                    console.log(err)
-                })
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-
-    }*/
     function updateOrderStatus() {
         const boxIdsArray = boxIds.split(',');
         Promise.all(boxIdsArray.map(id => {

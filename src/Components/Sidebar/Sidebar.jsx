@@ -64,7 +64,7 @@ function Sidebar() {
                     </a>
                 </li> : <></>}
                 <li style={{listStyle: 'none'}}>
-                    <a href="/" onClick={() => logOut()} className="logout" style={{color:"#DF2E38"}}>
+                    <a href="/" onClick={() => logOut()} className="logout" style={{color: "#DF2E38"}}>
                         LOG OUT
                     </a>
                 </li>

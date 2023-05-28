@@ -23,8 +23,6 @@ function Entries() {
     }, [newEntry, shouldRerender])
 
     function tryApi() {
-        // console.log("try api", customId)
-        // data.boxId = customId;
         axios.post("https://api-d4me-stage.direct4.me/sandbox/v1/Access/openbox", data, {
             headers: {
                 'Content-Type': 'application/json', 'Authorization': `Bearer 9ea96945-3a37-4638-a5d4-22e89fbc998f`,
@@ -60,13 +58,13 @@ function Entries() {
     return (
         <div className="admin-item">
             <h2>Test API</h2>
-            <input
-                type="number"
-                placeholder="Box ID"
-                onChange={(e) => {
-                    // Handle custom ID input change
-                }}
-            />
+            {/*<input*/}
+            {/*    type="number"*/}
+            {/*    placeholder="Box ID"*/}
+            {/*    onChange={(e) => {*/}
+            {/*        // Handle custom ID input change*/}
+            {/*    }}*/}
+            {/*/>*/}
             <button onClick={postCustomId}>Custom ID</button>
             <button onClick={tryApi}>Post to API</button>
         </div>

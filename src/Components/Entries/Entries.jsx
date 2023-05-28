@@ -38,7 +38,6 @@ export function Entries() {
                     </div>
                     <div className="user-position">
                         <EntryName entryType={entry.EntryType}/>
-                        {/*<p className="position">{entry.EntryType}</p>*/}
                         <p className="position">
                             {new Date(entry.TimeAccessed).toLocaleDateString()}{" "}
                             {new Date(entry.TimeAccessed).toLocaleTimeString()}

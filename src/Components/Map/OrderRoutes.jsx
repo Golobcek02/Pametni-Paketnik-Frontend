@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
-import { useMap } from "react-leaflet";
-import L, { latLng } from "leaflet"
+import {useMap} from "react-leaflet";
+import L, {latLng} from "leaflet"
 
 export function OrderRoutes(props) {
 
@@ -73,11 +73,11 @@ export function OrderRoutes(props) {
                             });
 
                             if (userBoxOnOrder.length > 0) {
-                                L.marker([userBoxOnOrder[0].Latitude + 0.00005, userBoxOnOrder[0].Longitude + 0.00005], { icon: yourBoxStop }).addTo(map);
+                                L.marker([userBoxOnOrder[0].Latitude + 0.00005, userBoxOnOrder[0].Longitude + 0.00005], {icon: yourBoxStop}).addTo(map);
                             } else if (index === 0) {
-                                L.marker([parseFloat(LatLon[0]), parseFloat(LatLon[1])], { icon: currentStopIcon }).addTo(map);
+                                L.marker([parseFloat(LatLon[0]), parseFloat(LatLon[1])], {icon: currentStopIcon}).addTo(map);
                             } else {
-                                L.marker([parseFloat(LatLon[0]), parseFloat(LatLon[1])], { icon: intermediateStopIcon }).addTo(map);
+                                L.marker([parseFloat(LatLon[0]), parseFloat(LatLon[1])], {icon: intermediateStopIcon}).addTo(map);
                             }
                         });
 
@@ -93,8 +93,8 @@ export function OrderRoutes(props) {
 
                         polyline.bindPopup("Estimated time of delivery: " + hours + "h " + minutes + "min " + remainingSeconds + "sec<br>Total route distance: " + res.data.results[0].distance / 1000 + "km");
                     }).catch(e => {
-                        console.log(e)
-                    })
+                    console.log(e)
+                })
             });
         }
     }, [stops]);
