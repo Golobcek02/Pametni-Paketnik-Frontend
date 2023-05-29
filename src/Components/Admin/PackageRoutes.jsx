@@ -68,7 +68,8 @@ export function PackageRoutes(props) {
         <div className="admin-item">
             <h2>Package Routes</h2>
             <div>
-                <input type="text" id="username" placeholder="Enter Route ID"/>
+                <input type="text" id="username" onChange={(e) => setRouteIdInput(e.target.value)}
+                       placeholder="Enter Route ID"/>
                 <button type="submit" onClick={() => popFirstStop()}>
                     Pop First Stop
                 </button>
