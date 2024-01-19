@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from 'react';
 
 export function UserBoxesAndAccesses(props) {
-    const [selectedFile, setSelectedFile] = useState(null);
-    const [uploadedImage, setUploadedImage] = useState(null);
+    const [selectedFiles, setSelectedFiles] = useState({});
+    const [uploadedImages, setUploadedImages] = useState({});
 
     useEffect(() => {
         // Check if a .bin file exists for each boxId
@@ -15,7 +15,7 @@ export function UserBoxesAndAccesses(props) {
                     const bmpResponse = await fetch(`${props.API_ENV}/getBMPImage/${box.BoxId}`);
                     const bmpBlob = await bmpResponse.blob();
                     const bmpUrl = URL.createObjectURL(bmpBlob);
-                    setUploadedImage({boxId: box.BoxId, bmpUrl});
+                    setUploadedImages((prevImages) => ({...prevImages, [box.BoxId]: bmpUrl}));
                 }
             } catch (error) {
                 console.error("Error checking .bin file:", error);
@@ -25,16 +25,16 @@ export function UserBoxesAndAccesses(props) {
 
     const handleFileChange = (event, boxId) => {
         const file = event.target.files[0];
-        setSelectedFile({file, boxId});
+        setSelectedFiles((prevFiles) => ({...prevFiles, [boxId]: file}));
     };
 
-    const handleFileUpload = async () => {
-        if (!selectedFile) {
+    const handleFileUpload = async (boxId) => {
+        const file = selectedFiles[boxId];
+
+        if (!file) {
             console.error("No file selected");
             return;
         }
-
-        const {file, boxId} = selectedFile;
 
         const formData = new FormData();
         formData.append("file", file);
@@ -49,7 +49,7 @@ export function UserBoxesAndAccesses(props) {
                 const bmpResponse = await fetch(`${props.API_ENV}/getBMPImage/${boxId}`);
                 const bmpBlob = await bmpResponse.blob();
                 const bmpUrl = URL.createObjectURL(bmpBlob);
-                setUploadedImage({boxId, bmpUrl});
+                setUploadedImages((prevImages) => ({...prevImages, [boxId]: bmpUrl}));
             } else {
                 console.error(`Failed to upload image for Box Id ${boxId}`);
             }
@@ -59,21 +59,21 @@ export function UserBoxesAndAccesses(props) {
     };
 
     return (<div className="box">
-        <h2>Your boxes:</h2>
-        <div className="user">
-            {props.userBoxes.map((box) => (<div key={box.BoxId}>
-                {uploadedImage && uploadedImage.boxId === box.BoxId ? (
-                    <img src={uploadedImage.bmpUrl} alt={`Box Id ${box.BoxId}`}/>) : (<>
-                    <input
-                        type="file"
-                        accept=".bmp"
-                        onChange={(event) => handleFileChange(event, box.BoxId)}
-                    />
-                    <button onClick={handleFileUpload}>Upload Image</button>
-                </>)}
-                <p style={{color: "#DF2E38"}}>Box Id: {box.BoxId}</p>
-                {/* Display other information about the box */}
-            </div>))}
-        </div>
-    </div>);
+            <h2>Your boxes:</h2>
+            <div className="user">
+                {props.userBoxes.map((box) => (<div key={box.BoxId}>
+                        {uploadedImages[box.BoxId] ? (
+                            <img src={uploadedImages[box.BoxId]} alt={`Box Id ${box.BoxId}`}/>) : (<>
+                                <input
+                                    type="file"
+                                    accept=".bmp"
+                                    onChange={(event) => handleFileChange(event, box.BoxId)}
+                                />
+                                <button onClick={() => handleFileUpload(box.BoxId)}>Upload Image</button>
+                            </>)}
+                        <p style={{color: "#DF2E38"}}>Box Id: {box.BoxId}</p>
+                        {/* Display other information about the box */}
+                    </div>))}
+            </div>
+        </div>);
 }
